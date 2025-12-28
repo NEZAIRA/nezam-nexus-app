@@ -109,32 +109,32 @@ const AdminPage = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0a0e1a] to-[#0c1e35] flex items-center justify-center p-4">
-        <div className="glass-effect p-8 rounded-2xl max-w-md w-full">
-          <h1 className="text-3xl font-bold text-center mb-8 gradient-text">Admin Access</h1>
+      <div className="min-h-screen bg-[#f3f2f1] flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-lg max-w-md w-full shadow-md border border-[#e1dfdd]">
+          <h1 className="text-2xl font-bold text-center mb-6 text-[#201f1e]">Admin Access</h1>
           
           <form onSubmit={handleLogin}>
-            {error && <div className="mb-4 p-3 bg-red-500/20 text-red-300 rounded-lg">{error}</div>}
+            {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded border border-red-200">{error}</div>}
             
-            <div className="mb-6">
-              <label className="block text-gray-300 mb-2">Email</label>
+            <div className="mb-4">
+              <label className="block text-[#323130] mb-2">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white placeholder-gray-500"
+                className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                 placeholder="Enter admin email"
                 required
               />
             </div>
             
-            <div className="mb-6">
-              <label className="block text-gray-300 mb-2">Password</label>
+            <div className="mb-4">
+              <label className="block text-[#323130] mb-2">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white placeholder-gray-500"
+                className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                 placeholder="Enter password"
                 required
               />
@@ -142,13 +142,13 @@ const AdminPage = () => {
             
             <button 
               type="submit" 
-              className="w-full futuristic-btn px-6 py-3 bg-[#00c6ff] text-[#0a2540] font-bold rounded-lg hover:bg-[#00a8e8] transition-all"
+              className="w-full px-4 py-2 bg-[#0078d4] text-white font-semibold rounded-md hover:bg-[#106ebe] transition-colors"
             >
               Login
             </button>
           </form>
           
-          <p className="text-center text-gray-500 text-sm mt-6">
+          <p className="text-center text-[#605e5c] text-sm mt-4">
             Admin credentials: uhansekepler@gmail.com / ya*ali857
           </p>
         </div>
@@ -157,58 +157,58 @@ const AdminPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0e1a] to-[#0c1e35] p-4">
+    <div className="min-h-screen bg-[#ffffff] p-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold gradient-text">Nezaira Admin Panel</h1>
+          <h1 className="text-2xl font-bold text-[#201f1e]">Nezaira Admin Panel</h1>
           <button 
             onClick={handleLogout}
-            className="futuristic-btn px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
+            className="px-4 py-2 bg-[#d13438] text-white font-semibold rounded-md hover:bg-[#a80000] transition-colors"
           >
             Logout
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Post Creation/Editing Form */}
           <div className="lg:col-span-1">
-            <div className="glass-effect p-6 rounded-2xl">
-              <h2 className="text-xl font-bold mb-6">
+            <div className="bg-white p-6 rounded-lg border border-[#e1dfdd] shadow-sm">
+              <h2 className="text-lg font-semibold mb-4 text-[#201f1e]">
                 {isEditing ? 'Edit Post' : 'Create New Post'}
               </h2>
               
               <form onSubmit={handleSubmitPost}>
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Title</label>
+                  <label className="block text-[#323130] mb-2">Title</label>
                   <input
                     type="text"
                     name="title"
                     value={currentPost?.title || ''}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white"
+                    className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                     required
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Excerpt</label>
+                  <label className="block text-[#323130] mb-2">Excerpt</label>
                   <textarea
                     name="excerpt"
                     value={currentPost?.excerpt || ''}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white"
+                    className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                     rows={3}
                     required
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Category</label>
+                  <label className="block text-[#323130] mb-2">Category</label>
                   <select
                     name="category"
                     value={currentPost?.category || 'Technology'}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white"
+                    className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                   >
                     <option value="Technology">Technology</option>
                     <option value="AI">AI</option>
@@ -218,12 +218,12 @@ const AdminPage = () => {
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Content</label>
+                  <label className="block text-[#323130] mb-2">Content</label>
                   <textarea
                     name="content"
                     value={currentPost?.content || ''}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white"
+                    className="w-full px-3 py-2 bg-white border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e]"
                     rows={8}
                     required
                   />
@@ -231,7 +231,7 @@ const AdminPage = () => {
                 
                 <button 
                   type="submit" 
-                  className="w-full futuristic-btn px-4 py-3 bg-[#00c6ff] text-[#0a2540] font-bold rounded-lg hover:bg-[#00a8e8] transition-all"
+                  className="w-full px-4 py-2 bg-[#0078d4] text-white font-semibold rounded-md hover:bg-[#106ebe] transition-colors"
                 >
                   {isEditing ? 'Update Post' : 'Create Post'}
                 </button>
@@ -251,7 +251,7 @@ const AdminPage = () => {
                       });
                       setIsEditing(false);
                     }}
-                    className="w-full mt-2 futuristic-btn px-4 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-all"
+                    className="w-full mt-2 px-4 py-2 bg-[#f3f2f1] text-[#323130] font-semibold rounded-md hover:bg-[#edebe9] transition-colors"
                   >
                     Cancel Edit
                   </button>
@@ -262,39 +262,39 @@ const AdminPage = () => {
           
           {/* Posts List */}
           <div className="lg:col-span-2">
-            <div className="glass-effect p-6 rounded-2xl">
-              <h2 className="text-xl font-bold mb-6">Manage Posts</h2>
+            <div className="bg-white p-6 rounded-lg border border-[#e1dfdd] shadow-sm">
+              <h2 className="text-lg font-semibold mb-4 text-[#201f1e]">Manage Posts</h2>
               
               {posts.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-gray-400">No posts created yet</p>
+                  <p className="text-[#605e5c]">No posts created yet</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {posts.map(post => (
-                    <div key={post.id} className="p-4 bg-[#0a2540]/30 rounded-lg border border-[#00c6ff]/20">
+                    <div key={post.id} className="p-4 bg-[#f3f2f1] rounded border border-[#e1dfdd]">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="font-bold text-lg text-white">{post.title}</h3>
-                          <p className="text-gray-400 text-sm mt-1">{post.excerpt}</p>
+                          <h3 className="font-semibold text-[#201f1e]">{post.title}</h3>
+                          <p className="text-[#323130] text-sm mt-1">{post.excerpt}</p>
                           <div className="flex gap-2 mt-2">
-                            <span className="text-xs bg-[#00c6ff]/20 text-[#00c6ff] px-2 py-1 rounded">
+                            <span className="text-xs bg-[#0078d4]/10 text-[#0078d4] px-2 py-1 rounded">
                               {post.category}
                             </span>
-                            <span className="text-xs text-gray-500">{post.date}</span>
-                            <span className="text-xs text-gray-500">{post.readTime}</span>
+                            <span className="text-xs text-[#605e5c]">{post.date}</span>
+                            <span className="text-xs text-[#605e5c]">{post.readTime}</span>
                           </div>
                         </div>
                         <div className="flex gap-2">
                           <button 
                             onClick={() => handleEditPost(post)}
-                            className="px-3 py-1 bg-[#00c6ff]/20 text-[#00c6ff] rounded hover:bg-[#00c6ff]/30 transition-colors"
+                            className="px-3 py-1 bg-[#f3f2f1] text-[#323130] rounded border border-[#d2d0ce] hover:bg-[#edebe9] transition-colors"
                           >
                             Edit
                           </button>
                           <button 
                             onClick={() => handleDeletePost(post.id)}
-                            className="px-3 py-1 bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 transition-colors"
+                            className="px-3 py-1 bg-[#fde7e9] text-[#a80000] rounded border border-[#f68587] hover:bg-[#f68587] hover:text-white transition-colors"
                           >
                             Delete
                           </button>

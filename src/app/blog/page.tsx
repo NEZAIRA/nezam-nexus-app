@@ -65,20 +65,20 @@ const BlogPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0e1a] to-[#0c1e35]">
+    <div className="min-h-screen bg-[#ffffff]">
       <div className="blog-section py-20 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="section-title text-4xl font-bold text-center mb-4">Research Insights</h2>
-          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Advanced research at the intersection of technology and medicine</p>
+          <h2 className="text-4xl font-bold text-center mb-4 text-[#201f1e]">Research & Insights</h2>
+          <p className="text-center text-[#605e5c] mb-12 max-w-2xl mx-auto">Advanced research at the intersection of technology and medicine</p>
           
           <div className="category-filters flex flex-wrap justify-center gap-4 mb-8">
             {categories.map(category => (
               <button
                 key={category}
-                className={`category-btn px-6 py-2 rounded-full transition-all ${
+                className={`category-btn px-4 py-2 rounded-full transition-all ${
                   activeCategory === category 
-                    ? 'bg-gradient-to-r from-[#00c6ff] to-[#0072ff] text-[#0a2540] font-medium' 
-                    : 'bg-[#0a2540] text-white border border-[#00c6ff]/30'
+                    ? 'bg-[#0078d4] text-white font-medium' 
+                    : 'bg-[#f3f2f1] text-[#323130]'
                 }`}
                 onClick={() => setActiveCategory(category)}
               >
@@ -88,10 +88,10 @@ const BlogPage = () => {
           </div>
           
           <div className="search-container max-w-2xl mx-auto mb-12 relative">
-            <i className="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <i className="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-[#605e5c]"></i>
             <input
               type="text"
-              className="search-input w-full pl-12 pr-4 py-3 bg-[#0a2540]/50 border border-[#00c6ff]/30 rounded-lg focus:outline-none focus:border-[#00c6ff] text-white placeholder-gray-500"
+              className="search-input w-full pl-12 pr-4 py-3 bg-[#f3f2f1] border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e] placeholder-[#605e5c]"
               placeholder="Search research articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -100,24 +100,24 @@ const BlogPage = () => {
           
           <div className="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map(post => (
-              <div key={post.id} className="glass-effect rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div className="blog-image h-48 bg-gradient-to-r from-[#0a2540] to-[#0072ce] flex items-center justify-center text-white text-4xl">
+              <div key={post.id} className="bg-white rounded-lg border border-[#e1dfdd] overflow-hidden hover:shadow-md transition-all duration-300">
+                <div className="blog-image h-48 bg-gradient-to-r from-[#0078d4] to-[#106ebe] flex items-center justify-center text-white text-4xl">
                   <i className={`fas ${post.category === 'AI' ? 'fa-brain' : 
                                 post.category === 'Technology' ? 'fa-laptop-code' : 
                                 post.category === 'Medicine' ? 'fa-heartbeat' : 
                                 'fa-infinity'}`}></i>
                 </div>
                 <div className="blog-content p-6">
-                  <span className="blog-category inline-block px-3 py-1 bg-[#00c6ff]/20 text-[#00c6ff] rounded-full text-sm font-semibold mb-3">
+                  <span className="blog-category inline-block px-3 py-1 bg-[#0078d4]/10 text-[#0078d4] rounded-full text-sm font-semibold mb-3">
                     {post.category}
                   </span>
-                  <h3 className="blog-title text-xl font-bold text-white mb-3">{post.title}</h3>
-                  <p className="blog-excerpt text-gray-300 mb-4">{post.excerpt}</p>
-                  <div className="blog-meta flex justify-between items-center text-gray-500 text-sm border-t border-[#00c6ff]/20 pt-4">
+                  <h3 className="blog-title text-xl font-bold text-[#201f1e] mb-3">{post.title}</h3>
+                  <p className="blog-excerpt text-[#323130] mb-4">{post.excerpt}</p>
+                  <div className="blog-meta flex justify-between items-center text-[#605e5c] text-sm border-t border-[#e1dfdd] pt-4">
                     <span>{post.date}</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <Link href="#" className="read-more text-[#00c6ff] font-semibold hover:text-white transition-colors mt-4 inline-block">
+                  <Link href="#" className="read-more text-[#0078d4] font-semibold hover:text-[#106ebe] transition-colors mt-4 inline-block">
                     Read More →
                   </Link>
                 </div>
@@ -127,16 +127,16 @@ const BlogPage = () => {
           
           {filteredPosts.length === 0 && (
             <div className="text-center py-12">
-              <h3 className="text-xl font-semibold text-gray-300">Research platform in development</h3>
-              <p className="text-gray-500 mt-2">Advanced insights and research articles coming soon</p>
+              <h3 className="text-xl font-semibold text-[#201f1e]">No articles published yet</h3>
+              <p className="text-[#605e5c] mt-2">Check back later for new research and insights</p>
             </div>
           )}
           
           <div className="pagination flex justify-center gap-2 mt-12">
-            <button className="page-btn px-4 py-2 border border-[#00c6ff]/30 rounded-md hover:bg-[#00c6ff]/10 transition-colors text-white">1</button>
-            <button className="page-btn px-4 py-2 border border-[#00c6ff]/30 rounded-md hover:bg-[#00c6ff]/10 transition-colors text-white">2</button>
-            <button className="page-btn px-4 py-2 border border-[#00c6ff]/30 rounded-md hover:bg-[#00c6ff]/10 transition-colors text-white">3</button>
-            <button className="page-btn px-4 py-2 border border-[#00c6ff]/30 rounded-md hover:bg-[#00c6ff]/10 transition-colors text-white">
+            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">1</button>
+            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">2</button>
+            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">3</button>
+            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">
               <i className="fas fa-chevron-right"></i>
             </button>
           </div>
