@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Nezam Nexus | Intelligent Systems for Healthcare Innovation",
-  description: "Nezam Nexus - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
+  title: "Nezaira | Intelligent Systems for Healthcare Innovation",
+  description: "Nezaira - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
 };
 
 export default function RootLayout({

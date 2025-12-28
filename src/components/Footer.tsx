@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Nezam Nexus</h3>
+            <h3 className="text-xl font-bold mb-4">Nezaira</h3>
             <p className="text-blue-200 mb-4">
               Building intelligent systems for medicine and technology. Founded by MOHAMMADMAHDI NEZAMOLESLAMI, passionate about health technology.
             </p>
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-blue-800 mt-12 pt-8 text-center text-blue-300">
-          <p>&copy; {new Date().getFullYear()} Nezam Nexus. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Nezaira. All rights reserved.</p>
         </div>
       </div>
     </footer>

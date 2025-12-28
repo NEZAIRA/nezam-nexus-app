@@ -15,7 +15,7 @@ const Hero = () => {
             Building Intelligent Systems for <span className="text-blue-900">Medicine & Technology</span>
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-10">
-            Nezam Nexus creates AI-powered healthcare solutions. Founded by MOHAMMADMAHDI NEZAMOLESLAMI, passionate about health technology and innovation.
+            Nezaira creates AI-powered healthcare solutions. Founded by MOHAMMADMAHDI NEZAMOLESLAMI, passionate about health technology and innovation.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
