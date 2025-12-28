@@ -7,12 +7,12 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <Navbar />
       <main>
         <Hero />
-        <div className="container mx-auto px-4 py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="container mx-auto px-4 py-24 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <BlogSection />
             <ProductsSection />
           </div>

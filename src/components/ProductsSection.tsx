@@ -35,36 +35,35 @@ const ProductsSection = () => {
   };
 
   return (
-    <section id="products" className="relative z-10 py-20">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16 text-white">Innovation Showcase</h2>
+    <section id="products" className="py-16">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Innovation Portfolio</h2>
         
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-800/30 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 p-8 md:p-12">
+        <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-8 shadow-sm">
           <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
             {products.map((product, index) => (
               <div 
                 key={product.id} 
                 className="min-w-full flex-shrink-0 px-4"
               >
-                <div className="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto">
+                <div className="flex flex-col md:flex-row items-center gap-10 max-w-4xl mx-auto">
                   <div className="flex-1 text-center md:text-left">
-                    <span className="inline-block px-4 py-2 bg-cyan-500/20 text-cyan-300 rounded-full text-sm font-semibold mb-6">
+                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-semibold mb-4">
                       {product.category}
                     </span>
-                    <h3 className="text-4xl md:text-5xl font-bold mb-6 text-white">{product.name}</h3>
-                    <p className="text-xl text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
+                    <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">{product.name}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-lg mx-auto md:mx-0">
                       {product.description}
                     </p>
-                    <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-900 font-bold rounded-xl hover:opacity-90 transition-all transform hover:scale-105">
-                      Explore Platform
+                    <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
+                      Learn More
                     </button>
                   </div>
                   
                   <div className="flex-1 flex justify-center">
-                    <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-500/30">
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/10 to-blue-500/10 animate-pulse"></div>
-                      <div className="relative w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-500/30 flex items-center justify-center">
-                        <i className={`fas ${product.icon} text-7xl text-cyan-400`}></i>
+                    <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center border border-blue-200 dark:border-blue-800/50">
+                      <div className="w-32 h-32 md:w-44 md:h-44 rounded-full bg-blue-200 dark:bg-blue-800/30 flex items-center justify-center">
+                        <i className={`fas ${product.icon} text-5xl text-blue-600 dark:text-blue-400`}></i>
                       </div>
                     </div>
                   </div>
@@ -76,38 +75,28 @@ const ProductsSection = () => {
           {/* Navigation controls */}
           <button 
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-gray-800/50 border border-gray-600 flex items-center justify-center text-cyan-400 hover:bg-cyan-500/20 transition-colors z-10"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors z-10 shadow-sm"
           >
-            <i className="fas fa-chevron-left"></i>
+            <i className="fas fa-chevron-left text-sm"></i>
           </button>
           
           <button 
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 rounded-full bg-gray-800/50 border border-gray-600 flex items-center justify-center text-cyan-400 hover:bg-cyan-500/20 transition-colors z-10"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors z-10 shadow-sm"
           >
-            <i className="fas fa-chevron-right"></i>
+            <i className="fas fa-chevron-right text-sm"></i>
           </button>
           
           {/* Indicators */}
-          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
             {products.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all ${index === currentIndex ? 'bg-cyan-400 w-6' : 'bg-gray-600'}`}
+                className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? 'bg-blue-600 w-6' : 'bg-gray-300 dark:bg-gray-600'}`}
               ></button>
             ))}
           </div>
-        </div>
-        
-        <div className="flex justify-center mt-8 space-x-2">
-          {products.map((_, index) => (
-            <div 
-              key={index}
-              className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? 'bg-cyan-400 w-8' : 'bg-gray-600 w-2'}`}
-              onClick={() => setCurrentIndex(index)}
-            ></div>
-          ))}
         </div>
       </div>
     </section>

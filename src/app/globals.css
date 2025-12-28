@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
+  --background: #ffffff;
   --foreground: #1e293b;
-  --primary-dark: #0a2540;
-  --accent-cyan: #00c6ff;
-  --accent-blue: #0072ce;
-  --success-green: #00ff9d;
+  --muted: #64748b;
+  --accent-primary: #0ea5e9;
+  --accent-secondary: #8b5cf6;
+  --border: #e2e8f0;
+  --card-bg: #f8fafc;
 }
 
 @theme inline {
@@ -17,8 +18,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a2540;
+    --background: #0f172a;
     --foreground: #f1f5f9;
+    --muted: #94a3b8;
+    --accent-primary: #38bdf8;
+    --accent-secondary: #a78bfa;
+    --border: #334155;
+    --card-bg: #1e293b;
   }
 }
 
@@ -27,6 +33,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   line-height: 1.6;
+  transition: background-color 0.3s ease;
 }
 
 /* Animation for hero section */
