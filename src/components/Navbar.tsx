@@ -29,6 +29,9 @@ const Navbar = () => {
           <Link href="/contact">
             Contact
           </Link>
+          <Link href="/admin" className="hidden md:block">
+            Admin
+          </Link>
         </div>
         
         <div className="flex items-center md:hidden">
@@ -70,6 +73,9 @@ const Navbar = () => {
             </Link>
             <Link href="/contact" className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
               Contact
+            </Link>
+            <Link href="/admin" className="block py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              Admin
             </Link>
           </div>
         </div>
