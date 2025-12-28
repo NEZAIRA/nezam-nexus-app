@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the markdown editor to avoid SSR issues
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
 type BlogPost = {
   id: string;
@@ -48,7 +52,7 @@ const AdminPage = () => {
   const checkAuthStatus = async () => {
     try {
       const response = await fetch('/api/admin/stories');
-      if (response.ok) {
+      if (response.status !== 401) { // If not unauthorized, user is logged in
         setIsLoggedIn(true);
         fetchPosts();
       } else {
@@ -99,7 +103,8 @@ const AdminPage = () => {
       
       setIsLoggedIn(false);
       setPosts([]);
-      router.push('/admin'); // Refresh the page to clear any cached data
+      // Refresh the page to clear any cached data
+      window.location.href = '/admin';
     } catch (err) {
       console.error('Logout failed:', err);
     }
@@ -108,7 +113,11 @@ const AdminPage = () => {
   const fetchPosts = async () => {
     try {
       const response = await fetch('/api/admin/stories');
-      if (response.ok) {
+      if (response.status === 401) {
+        // Unauthorized - redirect to login
+        setIsLoggedIn(false);
+        setPosts([]);
+      } else if (response.ok) {
         const data = await response.json();
         setPosts(data);
       } else {
@@ -151,18 +160,32 @@ const AdminPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('/api/admin/stories', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(currentPost),
-      });
+      let response;
+      
+      if (isEditing && currentPost?.id) {
+        // Update existing post
+        response = await fetch(`/api/admin/stories/${currentPost.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(currentPost),
+        });
+      } else {
+        // Create new post
+        response = await fetch('/api/admin/stories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(currentPost),
+        });
+      }
       
       const data = await response.json();
       
       if (data.success) {
-        setSuccessMessage('Post published successfully!');
+        setSuccessMessage(`Article ${isEditing ? 'updated' : 'published'} successfully!`);
         setCurrentPost({
           id: '',
           title: '',
@@ -183,16 +206,16 @@ const AdminPage = () => {
         // Clear success message after 3 seconds
         setTimeout(() => setSuccessMessage(''), 3000);
       } else {
-        setError(data.message || 'Failed to publish post');
+        setError(data.message || `Failed to ${isEditing ? 'update' : 'publish'} article`);
       }
     } catch (err) {
-      setError('An error occurred while publishing the post');
+      setError(`An error occurred while ${isEditing ? 'updating' : 'publishing'} the article`);
       console.error(err);
     }
   };
 
   const handleEditPost = (post: BlogPost) => {
-    setCurrentPost(post);
+    setCurrentPost({ ...post });
     setImagePreview(post.featuredImage);
     setIsEditing(true);
   };
@@ -234,13 +257,13 @@ const AdminPage = () => {
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black p-4">
-        <div className="bg-gray-800 p-8 rounded-2xl max-w-md w-full shadow-2xl border border-cyan-500/20">
+        <div className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-2xl max-w-md w-full shadow-2xl border border-cyan-500/20">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mx-auto flex items-center justify-center mb-4">
-              <i className="fas fa-lock text-white text-2xl"></i>
+            <div className="w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full mx-auto flex items-center justify-center mb-4">
+              <i className="fas fa-shield-alt text-white text-2xl"></i>
             </div>
-            <h1 className="text-3xl font-bold text-white">Admin Access</h1>
-            <p className="text-gray-400 mt-2">Secure login required</p>
+            <h1 className="text-3xl font-bold text-white mb-2">Research Portal Access</h1>
+            <p className="text-gray-400">Secure authentication required</p>
           </div>
           
           <form onSubmit={handleLogin}>
@@ -251,7 +274,7 @@ const AdminPage = () => {
             )}
             
             <div className="mb-6">
-              <label className="block text-gray-300 mb-2">Email</label>
+              <label className="block text-gray-300 mb-2 font-medium">Email</label>
               <input
                 type="email"
                 value={email}
@@ -263,7 +286,7 @@ const AdminPage = () => {
             </div>
             
             <div className="mb-6">
-              <label className="block text-gray-300 mb-2">Password</label>
+              <label className="block text-gray-300 mb-2 font-medium">Password</label>
               <input
                 type="password"
                 value={password}
@@ -276,9 +299,9 @@ const AdminPage = () => {
             
             <button 
               type="submit" 
-              className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-lg hover:opacity-90 transition-all"
+              className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-lg hover:opacity-90 transition-all shadow-lg"
             >
-              Login
+              Authenticate
             </button>
           </form>
           
@@ -295,15 +318,15 @@ const AdminPage = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white">Nezaira Admin Panel</h1>
-            <p className="text-gray-400">Manage content and publications</p>
+            <h1 className="text-3xl font-bold text-white">Nezaira Content Management</h1>
+            <p className="text-gray-400">Research & publication platform</p>
           </div>
           <button 
             onClick={handleLogout}
-            className="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center"
+            className="py-3 px-6 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-lg hover:opacity-90 transition-all flex items-center"
           >
             <i className="fas fa-sign-out-alt mr-2"></i>
-            Logout
+            Sign Out
           </button>
         </div>
 
@@ -322,42 +345,44 @@ const AdminPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Post Creation/Editing Form */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-xl">
               <h2 className="text-xl font-bold text-white mb-6">
-                {isEditing ? 'Edit Post' : 'Create New Post'}
+                {isEditing ? 'Edit Research Article' : 'Create New Research Article'}
               </h2>
               
               <form onSubmit={handleSubmitPost}>
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Title *</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Title *</label>
                   <input
                     type="text"
                     name="title"
                     value={currentPost?.title || ''}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500"
+                    placeholder="Enter article title"
                     required
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Subtitle</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Subtitle</label>
                   <input
                     type="text"
                     name="subtitle"
                     value={currentPost?.subtitle || ''}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white placeholder-gray-500"
+                    placeholder="Enter article subtitle"
                   />
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Category</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Category</label>
                   <select
                     name="category"
                     value={currentPost?.category || 'Medicine'}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
                   >
                     <option value="Medicine">Medicine</option>
                     <option value="AI">AI</option>
@@ -367,41 +392,48 @@ const AdminPage = () => {
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Featured Image</label>
+                  <label className="block text-gray-300 mb-2 font-medium">Featured Image</label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
+                    className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
                   />
                   {imagePreview && (
-                    <div className="mt-2">
+                    <div className="mt-3">
+                      <div className="text-sm text-gray-400 mb-2">Preview:</div>
                       <img 
                         src={imagePreview} 
                         alt="Preview" 
-                        className="max-w-full h-32 object-contain border border-gray-600 rounded"
+                        className="max-w-full h-32 object-contain border border-gray-600 rounded-lg"
                       />
                     </div>
                   )}
                 </div>
                 
                 <div className="mb-4">
-                  <label className="block text-gray-300 mb-2">Content *</label>
-                  <textarea
-                    name="content"
-                    value={currentPost?.content || ''}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white"
-                    rows={8}
-                    required
-                  />
+                  <label className="block text-gray-300 mb-2 font-medium">Content *</label>
+                  <div className="w-full bg-gray-700/50 border border-gray-600 rounded-lg focus:outline-none focus:border-cyan-500 text-white">
+                    <MDEditor
+                      value={currentPost?.content || ''}
+                      onChange={(value) => setCurrentPost(prev => ({
+                        ...prev!,
+                        content: value || ''
+                      }) as BlogPost)}
+                      height={400}
+                      preview="edit"
+                      textareaProps={{
+                        placeholder: "Write your research article content here... Use # for headings, **bold**, *italic*, - for lists, and more markdown syntax"
+                      }}
+                    />
+                  </div>
                 </div>
                 
                 <button 
                   type="submit" 
-                  className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-lg hover:opacity-90 transition-all"
+                  className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-lg hover:opacity-90 transition-all shadow-lg"
                 >
-                  {isEditing ? 'Update Post' : 'Publish Post'}
+                  {isEditing ? 'Update Article' : 'Publish Article'}
                 </button>
                 
                 {isEditing && (
@@ -422,9 +454,9 @@ const AdminPage = () => {
                       setImagePreview(null);
                       setIsEditing(false);
                     }}
-                    className="w-full mt-2 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors"
+                    className="w-full mt-3 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors"
                   >
-                    Cancel Edit
+                    Cancel Editing
                   </button>
                 )}
               </form>
@@ -433,43 +465,51 @@ const AdminPage = () => {
           
           {/* Posts List */}
           <div className="lg:col-span-2">
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-              <h2 className="text-xl font-bold text-white mb-6">Manage Posts</h2>
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-xl">
+              <h2 className="text-xl font-bold text-white mb-6">Research Articles</h2>
               
               {posts.length === 0 ? (
-                <div className="text-center py-8">
-                  <i className="fas fa-file-alt text-5xl text-gray-600 mb-4"></i>
-                  <h3 className="text-xl text-gray-400">No posts created yet</h3>
-                  <p className="text-gray-500 mt-2">Create your first post using the form</p>
+                <div className="text-center py-12">
+                  <i className="fas fa-book-medical text-6xl text-gray-600 mb-4"></i>
+                  <h3 className="text-xl text-gray-400">No research articles published yet</h3>
+                  <p className="text-gray-500 mt-2">Create your first research article using the form</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {posts.map(post => (
-                    <div key={post.id} className="p-4 bg-gray-700/30 rounded-xl border border-gray-600">
+                    <div key={post.id} className="p-6 bg-gradient-to-r from-gray-700/30 to-gray-800/30 rounded-xl border border-gray-600 hover:border-cyan-500/30 transition-all duration-300">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="font-bold text-white text-lg">{post.title}</h3>
-                          <p className="text-gray-400 text-sm mt-1 line-clamp-2">{post.content.substring(0, 100)}...</p>
-                          <div className="flex gap-2 mt-2">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-bold text-white text-lg">{post.title}</h3>
                             <span className="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded">
                               {post.category}
                             </span>
-                            <span className="text-xs text-gray-500">{post.date}</span>
-                            <span className="text-xs text-gray-500">{post.readTime}</span>
+                          </div>
+                          <p className="text-gray-400 text-sm mb-3 line-clamp-2">{post.content.substring(0, 150)}...</p>
+                          <div className="flex gap-4 text-xs text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <i className="fas fa-calendar"></i>
+                              {post.date}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <i className="fas fa-clock"></i>
+                              {post.readTime}
+                            </span>
                           </div>
                         </div>
                         <div className="flex gap-2 ml-4">
                           <button 
                             onClick={() => handleEditPost(post)}
-                            className="px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded hover:bg-cyan-500/30 transition-colors"
+                            className="px-4 py-2 bg-cyan-500/20 text-cyan-300 rounded-lg hover:bg-cyan-500/30 transition-colors flex items-center"
                           >
-                            Edit
+                            <i className="fas fa-edit mr-1"></i> Edit
                           </button>
                           <button 
                             onClick={() => handleDeletePost(post.id)}
-                            className="px-3 py-1 bg-red-500/20 text-red-300 rounded hover:bg-red-500/30 transition-colors"
+                            className="px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-colors flex items-center"
                           >
-                            Delete
+                            <i className="fas fa-trash mr-1"></i> Delete
                           </button>
                         </div>
                       </div>
