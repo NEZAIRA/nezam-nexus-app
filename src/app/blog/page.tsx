@@ -65,81 +65,56 @@ const BlogPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#ffffff]">
-      <div className="blog-section py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-4 text-[#201f1e]">Research & Insights</h2>
-          <p className="text-center text-[#605e5c] mb-12 max-w-2xl mx-auto">Advanced research at the intersection of technology and medicine</p>
-          
-          <div className="category-filters flex flex-wrap justify-center gap-4 mb-8">
-            {categories.map(category => (
-              <button
-                key={category}
-                className={`category-btn px-4 py-2 rounded-full transition-all ${
-                  activeCategory === category 
-                    ? 'bg-[#0078d4] text-white font-medium' 
-                    : 'bg-[#f3f2f1] text-[#323130]'
-                }`}
-                onClick={() => setActiveCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          
-          <div className="search-container max-w-2xl mx-auto mb-12 relative">
-            <i className="fas fa-search search-icon absolute left-4 top-1/2 transform -translate-y-1/2 text-[#605e5c]"></i>
-            <input
-              type="text"
-              className="search-input w-full pl-12 pr-4 py-3 bg-[#f3f2f1] border border-[#d2d0ce] rounded-md focus:outline-none focus:border-[#0078d4] text-[#201f1e] placeholder-[#605e5c]"
-              placeholder="Search research articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          
-          <div className="blog-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map(post => (
-              <div key={post.id} className="bg-white rounded-lg border border-[#e1dfdd] overflow-hidden hover:shadow-md transition-all duration-300">
-                <div className="blog-image h-48 bg-gradient-to-r from-[#0078d4] to-[#106ebe] flex items-center justify-center text-white text-4xl">
-                  <i className={`fas ${post.category === 'AI' ? 'fa-brain' : 
-                                post.category === 'Technology' ? 'fa-laptop-code' : 
-                                post.category === 'Medicine' ? 'fa-heartbeat' : 
-                                'fa-infinity'}`}></i>
-                </div>
-                <div className="blog-content p-6">
-                  <span className="blog-category inline-block px-3 py-1 bg-[#0078d4]/10 text-[#0078d4] rounded-full text-sm font-semibold mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="blog-title text-xl font-bold text-[#201f1e] mb-3">{post.title}</h3>
-                  <p className="blog-excerpt text-[#323130] mb-4">{post.excerpt}</p>
-                  <div className="blog-meta flex justify-between items-center text-[#605e5c] text-sm border-t border-[#e1dfdd] pt-4">
-                    <span>{post.date}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <Link href="#" className="read-more text-[#0078d4] font-semibold hover:text-[#106ebe] transition-colors mt-4 inline-block">
-                    Read More →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          {filteredPosts.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-semibold text-[#201f1e]">No articles published yet</h3>
-              <p className="text-[#605e5c] mt-2">Check back later for new research and insights</p>
-            </div>
-          )}
-          
-          <div className="pagination flex justify-center gap-2 mt-12">
-            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">1</button>
-            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">2</button>
-            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">3</button>
-            <button className="page-btn px-4 py-2 border border-[#d2d0ce] rounded-md hover:bg-[#f3f2f1] transition-colors text-[#201f1e]">
-              <i className="fas fa-chevron-right"></i>
+    <div className="blog-section">
+      <div className="container mx-auto px-4">
+        <h2 className="section-title">Research Insights</h2>
+        
+        <div className="category-filters">
+          {categories.map(category => (
+            <button
+              key={category}
+              className={activeCategory === category ? 'active' : ''}
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
             </button>
+          ))}
+        </div>
+        
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search research articles..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        
+        <div className="blog-grid">
+          {filteredPosts.map(post => (
+            <div key={post.id} className="blog-post">
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+              <div className="blog-meta">
+                <span>{post.date}</span>
+                <span>{post.readTime}</span>
+              </div>
+              <Link href="#">Read More</Link>
+            </div>
+          ))}
+        </div>
+        
+        {filteredPosts.length === 0 && (
+          <div>
+            <h3>No articles found</h3>
+            <p>Try changing your search or filter criteria</p>
           </div>
+        )}
+        
+        <div className="pagination">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
         </div>
       </div>
     </div>
