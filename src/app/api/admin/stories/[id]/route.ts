@@ -5,6 +5,12 @@ import path from 'path';
 
 const storiesFilePath = path.join(process.cwd(), 'data', 'stories.json');
 
+// Ensure uploads directory exists
+const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 // Ensure data directory exists
 const dataDir = path.join(process.cwd(), 'data');
 if (!fs.existsSync(dataDir)) {
@@ -12,6 +18,24 @@ if (!fs.existsSync(dataDir)) {
 }
 
 // Initialize stories file if it doesn't exist
+
+// Function to save images
+async function saveImage(base64Data: string, filename: string): Promise<string> {
+  // Remove data URL prefix if present
+  const base64 = base64Data.replace(/^data:image\/\w+;base64,/, '');
+  
+  // Decode base64 to binary data
+  const imageBuffer = Buffer.from(base64, 'base64');
+  
+  // Create file path
+  const filePath = path.join(uploadsDir, filename);
+  
+  // Write the image to the file system
+  await fs.promises.writeFile(filePath, imageBuffer);
+  
+  // Return the URL path for the image
+  return `/uploads/${filename}`;
+}
 if (!fs.existsSync(storiesFilePath)) {
   fs.writeFileSync(storiesFilePath, JSON.stringify([]));
 }
@@ -63,6 +87,18 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       );
     }
     
+    // Handle featured image upload if provided
+    let featuredImageUrl = storyData.featuredImage; // Keep existing if no new image
+    if (storyData.featuredImage && typeof storyData.featuredImage === 'string' && storyData.featuredImage.startsWith('data:image')) {
+      // Generate a unique filename
+      const timestamp = Date.now();
+      const extension = storyData.featuredImage.split(';')[0].split('/')[1];
+      const filename = `featured-${timestamp}.${extension}`;
+      
+      // Save the image and get the URL
+      featuredImageUrl = await saveImage(storyData.featuredImage, filename);
+    }
+    
     // Update the existing story
     const updatedStory = {
       ...stories[storyIndex],
@@ -72,7 +108,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       category: storyData.category || 'Blog',
       date: new Date().toISOString().split('T')[0], // Update date to current date
       readTime: calculateReadingTime(storyData.content),
-      featuredImage: storyData.featuredImage,
+      featuredImage: featuredImageUrl,
       updatedAt: new Date().toISOString()
     };
     

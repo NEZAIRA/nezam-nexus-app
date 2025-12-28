@@ -51,7 +51,13 @@ const AdminPage = () => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch('/api/admin/stories');
+      const response = await fetch('/api/admin/stories', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies for authentication
+      });
       if (response.status !== 401) { // If not unauthorized, user is logged in
         setIsLoggedIn(true);
         fetchPosts();
@@ -76,6 +82,7 @@ const AdminPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // Include cookies for authentication
       });
       
       const data = await response.json();
@@ -99,6 +106,7 @@ const AdminPage = () => {
     try {
       await fetch('/api/admin/logout', {
         method: 'POST',
+        credentials: 'include', // Include cookies for authentication
       });
       
       setIsLoggedIn(false);
@@ -112,7 +120,13 @@ const AdminPage = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/admin/stories');
+      const response = await fetch('/api/admin/stories', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies for authentication
+      });
       if (response.status === 401) {
         // Unauthorized - redirect to login
         setIsLoggedIn(false);
@@ -170,6 +184,7 @@ const AdminPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(currentPost),
+          credentials: 'include', // Include cookies for authentication
         });
       } else {
         // Create new post
@@ -178,7 +193,11 @@ const AdminPage = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(currentPost),
+          body: JSON.stringify({
+            ...currentPost,
+            id: undefined // Don't send ID for new posts
+          }),
+          credentials: 'include', // Include cookies for authentication
         });
       }
       
@@ -228,6 +247,7 @@ const AdminPage = () => {
     try {
       const response = await fetch(`/api/admin/stories/${id}`, {
         method: 'DELETE',
+        credentials: 'include', // Include cookies for authentication
       });
       
       if (response.ok) {
