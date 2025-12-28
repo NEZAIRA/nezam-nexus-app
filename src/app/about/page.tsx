@@ -1,3 +1,5 @@
+'use client';
+
 const AboutPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 py-16">
