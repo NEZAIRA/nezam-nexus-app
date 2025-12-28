@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Nezaira | Intelligent Systems for Healthcare Innovation",
   description: "Nezaira - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

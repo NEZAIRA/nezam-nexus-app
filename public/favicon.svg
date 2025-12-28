@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- Background -->
+  <rect width="256" height="256" fill="#0a2540" rx="32"/>
+  
+  <!-- Telescope scope effect -->
+  <circle cx="128" cy="128" r="100" stroke="#00c6ff" stroke-width="4" fill="none" stroke-dasharray="8 4"/>
+  <circle cx="128" cy="128" r="80" stroke="#00c6ff" stroke-width="2" fill="none" stroke-dasharray="6 3"/>
+  <circle cx="128" cy="128" r="60" stroke="#00c6ff" stroke-width="1" fill="none" stroke-dasharray="4 2"/>
+  
+  <!-- Futuristic "N" letter -->
+  <path d="M70 70 L70 186 L110 130 L110 70 L120 70 L186 186 L156 186 L110 110 L156 70 Z" 
+        fill="#ffffff" stroke="none" transform="scale(1.1) translate(-15, -15)"/>
+  
+  <!-- Additional futuristic elements -->
+  <circle cx="70" cy="70" r="4" fill="#00c6ff"/>
+  <circle cx="186" cy="186" r="4" fill="#00c6ff"/>
+  <circle cx="128" cy="40" r="3" fill="#00c6ff"/>
+  <circle cx="128" cy="216" r="3" fill="#00c6ff"/>
+</svg>
