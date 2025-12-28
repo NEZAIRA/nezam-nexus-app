@@ -190,6 +190,39 @@ const ContactPage = () => {
               </form>
             </div>
             
+            <div className="auth-section mt-12 bg-gradient-to-r from-[#0a2540] to-[#0072ce] rounded-2xl p-8 text-white">
+              <h3 className="text-2xl font-bold mb-6">Admin Access</h3>
+              <div className="auth-form bg-white/10 p-6 rounded-xl mb-6">
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">Email</label>
+                  <input
+                    type="email"
+                    placeholder="Enter your admin email"
+                    className="w-full px-4 py-2 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00c6ff]"
+                    defaultValue="uhansekepler@gmail.com"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">Password</label>
+                  <input
+                    type="password"
+                    placeholder="Enter your password"
+                    className="w-full px-4 py-2 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#00c6ff]"
+                    defaultValue="ya*ali857"
+                  />
+                </div>
+                <div className="flex space-x-4">
+                  <button className="flex-1 px-4 py-2 bg-[#00c6ff] text-[#0a2540] font-semibold rounded-lg hover:bg-[#00a8e8] transition-colors">
+                    Login
+                  </button>
+                  <button className="flex-1 px-4 py-2 bg-[#0072ce] text-white font-semibold rounded-lg hover:bg-[#0059a8] transition-colors">
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+              <p className="text-sm opacity-80">Admin credentials: uhansekepler@gmail.com / ya*ali857</p>
+            </div>
+            
             <div className="newsletter-section mt-12 bg-gradient-to-r from-[#0a2540] to-[#0072ce] rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
               <p className="mb-6 opacity-90">Subscribe to our newsletter for the latest updates on our products and research.</p>

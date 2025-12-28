@@ -25,62 +25,7 @@ const BlogPage = () => {
     return `${minutes} min read`;
   };
 
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "The Future of AI in Healthcare Diagnosis",
-      excerpt: "Exploring how artificial intelligence is revolutionizing diagnostic medicine and improving patient outcomes.",
-      content: "Artificial intelligence is transforming healthcare in unprecedented ways. From diagnostic algorithms that can detect diseases earlier than human doctors to predictive models that anticipate patient deterioration, AI is revolutionizing how we approach medicine. These technologies are not meant to replace healthcare professionals but to augment their capabilities, allowing them to focus on what they do best - providing compassionate care to patients. The integration of AI in healthcare systems is creating more efficient workflows, reducing medical errors, and ultimately improving patient outcomes.",
-      date: "December 27, 2025",
-      category: "AI",
-      readTime: calculateReadingTime("Exploring how artificial intelligence is revolutionizing diagnostic medicine and improving patient outcomes. Artificial intelligence is transforming healthcare in unprecedented ways. From diagnostic algorithms that can detect diseases earlier than human doctors to predictive models that anticipate patient deterioration, AI is revolutionizing how we approach medicine. These technologies are not meant to replace healthcare professionals but to augment their capabilities, allowing them to focus on what they do best - providing compassionate care to patients. The integration of AI in healthcare systems is creating more efficient workflows, reducing medical errors, and ultimately improving patient outcomes.")
-    },
-    {
-      id: 2,
-      title: "Innovative Approaches to Health Data Security",
-      excerpt: "Protecting sensitive patient information while enabling advanced analytics and AI applications.",
-      content: "Healthcare data security is a critical concern as medical institutions increasingly rely on digital systems. With the rise of AI applications in healthcare, protecting sensitive patient information while enabling advanced analytics presents unique challenges. Modern encryption techniques, blockchain technology, and federated learning approaches are creating new paradigms for secure health data management. These solutions ensure that patient privacy is maintained while still allowing researchers and clinicians to access the data they need to improve care and develop new treatments.",
-      date: "December 26, 2025",
-      category: "Technology",
-      readTime: calculateReadingTime("Protecting sensitive patient information while enabling advanced analytics and AI applications. Healthcare data security is a critical concern as medical institutions increasingly rely on digital systems. With the rise of AI applications in healthcare, protecting sensitive patient information while enabling advanced analytics presents unique challenges. Modern encryption techniques, blockchain technology, and federated learning approaches are creating new paradigms for secure health data management. These solutions ensure that patient privacy is maintained while still allowing researchers and clinicians to access the data they need to improve care and develop new treatments.")
-    },
-    {
-      id: 3,
-      title: "Medical Education in the Digital Age",
-      excerpt: "How modern approaches are leveraging technology to enhance learning and practice.",
-      content: "Medical education has undergone significant changes with the integration of digital technologies. Virtual reality simulations allow students to practice procedures in risk-free environments, while AI-powered learning platforms adapt to individual student needs. Online resources provide access to vast medical knowledge, and telemedicine experiences offer new perspectives on patient care. These innovations are preparing the next generation of physicians with skills that blend traditional medical knowledge with cutting-edge technological capabilities, creating more versatile and effective healthcare providers.",
-      date: "December 25, 2025",
-      category: "Medicine",
-      readTime: calculateReadingTime("How modern approaches are leveraging technology to enhance learning and practice. Medical education has undergone significant changes with the integration of digital technologies. Virtual reality simulations allow students to practice procedures in risk-free environments, while AI-powered learning platforms adapt to individual student needs. Online resources provide access to vast medical knowledge, and telemedicine experiences offer new perspectives on patient care. These innovations are preparing the next generation of physicians with skills that blend traditional medical knowledge with cutting-edge technological capabilities, creating more versatile and effective healthcare providers.")
-    },
-    {
-      id: 4,
-      title: "Ethical Considerations in AI Healthcare",
-      excerpt: "Examining the ethical implications of artificial intelligence in medical decision-making.",
-      content: "As artificial intelligence becomes more prevalent in healthcare, ethical considerations become increasingly important. Questions of bias in AI algorithms, patient consent for AI-assisted diagnosis, and the responsibility for AI-driven medical decisions require careful consideration. Healthcare institutions must develop frameworks that ensure AI is used in ways that prioritize patient welfare, maintain human oversight, and preserve the doctor-patient relationship that is fundamental to quality care.",
-      date: "December 24, 2025",
-      category: "Future Innovations",
-      readTime: calculateReadingTime("Examining the ethical implications of artificial intelligence in medical decision-making. As artificial intelligence becomes more prevalent in healthcare, ethical considerations become increasingly important. Questions of bias in AI algorithms, patient consent for AI-assisted diagnosis, and the responsibility for AI-driven medical decisions require careful consideration. Healthcare institutions must develop frameworks that ensure AI is used in ways that prioritize patient welfare, maintain human oversight, and preserve the doctor-patient relationship that is fundamental to quality care.")
-    },
-    {
-      id: 5,
-      title: "Telemedicine: Bridging Healthcare Gaps",
-      excerpt: "How remote healthcare solutions are expanding access to medical expertise worldwide.",
-      content: "Telemedicine has emerged as a powerful tool for expanding access to healthcare, particularly in underserved areas. Through video consultations, remote monitoring, and digital health platforms, patients can now access specialist care without the need for travel. This technology has proven especially valuable during global health challenges, enabling continuity of care while maintaining safety protocols. The future of telemedicine includes more sophisticated remote diagnostic tools and AI-assisted preliminary assessments.",
-      date: "December 23, 2025",
-      category: "Technology",
-      readTime: calculateReadingTime("How remote healthcare solutions are expanding access to medical expertise worldwide. Telemedicine has emerged as a powerful tool for expanding access to healthcare, particularly in underserved areas. Through video consultations, remote monitoring, and digital health platforms, patients can now access specialist care without the need for travel. This technology has proven especially valuable during global health challenges, enabling continuity of care while maintaining safety protocols. The future of telemedicine includes more sophisticated remote diagnostic tools and AI-assisted preliminary assessments.")
-    },
-    {
-      id: 6,
-      title: "Personalized Medicine Through AI",
-      excerpt: "Tailoring treatments to individual genetic profiles using machine learning algorithms.",
-      content: "Personalized medicine represents the future of healthcare, where treatments are tailored to individual patients based on their genetic makeup, lifestyle, and medical history. AI algorithms can analyze vast amounts of patient data to identify patterns and predict treatment responses, leading to more effective therapies with fewer side effects. This approach moves beyond one-size-fits-all treatments toward precision medicine that maximizes therapeutic benefits while minimizing risks.",
-      date: "December 22, 2025",
-      category: "Medicine",
-      readTime: calculateReadingTime("Tailoring treatments to individual genetic profiles using machine learning algorithms. Personalized medicine represents the future of healthcare, where treatments are tailored to individual patients based on their genetic makeup, lifestyle, and medical history. AI algorithms can analyze vast amounts of patient data to identify patterns and predict treatment responses, leading to more effective therapies with fewer side effects. This approach moves beyond one-size-fits-all treatments toward precision medicine that maximizes therapeutic benefits while minimizing risks.")
-    }
-  ];
+  const blogPosts: BlogPost[] = [];
 
   const categories = ['All', 'Medicine', 'Technology', 'AI', 'Future Innovations'];
 
@@ -152,8 +97,8 @@ const BlogPage = () => {
         
         {filteredPosts.length === 0 && (
           <div className="text-center py-12">
-            <h3 className="text-xl font-semibold text-gray-700">No articles found</h3>
-            <p className="text-gray-500 mt-2">Try changing your search or filter criteria</p>
+            <h3 className="text-xl font-semibold text-gray-700">No articles published yet</h3>
+            <p className="text-gray-500 mt-2">Check back later for new posts and research</p>
           </div>
         )}
         

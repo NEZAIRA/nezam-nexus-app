@@ -13,21 +13,9 @@ const AboutPage = () => {
   const teamMembers: TeamMember[] = [
     {
       id: 1,
-      name: 'Sarah Johnson',
-      role: 'Lead AI Researcher',
-      bio: 'PhD in Machine Learning with focus on medical applications. Former researcher at leading medical institutions.'
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      role: 'Head of Engineering',
-      bio: 'Senior software engineer with 8+ years experience in healthcare tech. Previously at major tech companies.'
-    },
-    {
-      id: 3,
-      name: 'Dr. Emily Rodriguez',
-      role: 'Medical Advisor',
-      bio: 'Board-certified physician with expertise in internal medicine and clinical research.'
+      name: 'MOHAMMADMAHDI NEZAMOLESLAMI',
+      role: 'CEO',
+      bio: 'Founder of Nezaira, passionate about combining medical knowledge with technology to create innovative healthcare solutions.'
     }
   ];
 
