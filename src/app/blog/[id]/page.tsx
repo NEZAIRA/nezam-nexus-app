@@ -52,10 +52,10 @@ const BlogPostPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4">Loading post...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto"></div>
+          <p className="mt-4 text-gray-400">Loading post...</p>
         </div>
       </div>
     );
@@ -63,11 +63,11 @@ const BlogPostPage = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-red-500">Post not found</h2>
-          <p className="mt-2">{error || 'The requested post does not exist.'}</p>
-          <Link href="/blog" className="mt-4 inline-block text-blue-500 hover:underline">
+          <p className="mt-2 text-gray-400">{error || 'The requested post does not exist.'}</p>
+          <Link href="/blog" className="mt-4 inline-block text-cyan-400 hover:underline">
             Back to Blog
           </Link>
         </div>
@@ -76,37 +76,37 @@ const BlogPostPage = () => {
   }
 
   return (
-    <div className="blog-post-page py-12">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <Link href="/blog" className="text-blue-500 hover:underline mb-4 inline-block">
-          ← Back to Blog
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black py-20 px-4">
+      <div className="max-w-4xl mx-auto">
+        <Link href="/blog" className="text-cyan-400 hover:text-cyan-300 mb-8 inline-block flex items-center">
+          <i className="fas fa-arrow-left mr-2"></i> Back to Blog
         </Link>
         
         {post.featuredImage && (
-          <div className="blog-image mb-8">
-            <img src={post.featuredImage} alt={post.title} className="w-full h-96 object-cover rounded" />
+          <div className="blog-image mb-12 rounded-2xl overflow-hidden border border-gray-700">
+            <img src={post.featuredImage} alt={post.title} className="w-full h-96 object-cover" />
           </div>
         )}
         
         <div className="blog-content">
-          <span className="blog-category inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
+          <span className="blog-category inline-block px-4 py-2 bg-cyan-500/20 text-cyan-300 rounded-full text-sm font-semibold mb-6">
             {post.category}
           </span>
           
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">{post.title}</h1>
           
           {post.subtitle && (
-            <h2 className="text-2xl text-gray-600 mb-6">{post.subtitle}</h2>
+            <h2 className="text-2xl text-gray-300 mb-8">{post.subtitle}</h2>
           )}
           
-          <div className="blog-meta flex justify-between items-center text-gray-500 text-sm mb-8 border-b pb-4">
-            <span>{post.date}</span>
+          <div className="blog-meta flex flex-wrap justify-between items-center text-gray-500 text-sm mb-10 border-b border-gray-700 pb-4">
+            <span className="mb-2 md:mb-0">{post.date}</span>
             <span>{post.readTime}</span>
           </div>
           
-          <div className="blog-body text-lg leading-relaxed">
+          <div className="blog-body text-lg leading-relaxed text-gray-300 max-w-4xl">
             {post.content.split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4">
+              <p key={index} className="mb-6 last:mb-0">
                 {paragraph}
               </p>
             ))}
