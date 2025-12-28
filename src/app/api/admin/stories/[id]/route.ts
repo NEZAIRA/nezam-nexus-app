@@ -40,7 +40,7 @@ if (!fs.existsSync(storiesFilePath)) {
   fs.writeFileSync(storiesFilePath, JSON.stringify([]));
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Check if user is authenticated
     const cookieHeader = request.headers.get('cookie');
@@ -63,7 +63,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       );
     }
     
-    const { id } = params;
+    const { id } = await params;
     const storyData = await request.json();
     
     // Validate required fields
@@ -131,7 +131,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Check if user is authenticated
     const cookieHeader = request.headers.get('cookie');
@@ -154,7 +154,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       );
     }
     
-    const { id } = params;
+    const { id } = await params;
     
     // Read existing stories
     let stories = JSON.parse(fs.readFileSync(storiesFilePath, 'utf8'));
