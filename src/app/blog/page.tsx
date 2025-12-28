@@ -1,73 +1,91 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type BlogPost = {
-  id: number;
+  id: string;
   title: string;
-  excerpt: string;
+  subtitle: string;
   content: string;
   date: string;
   category: string;
   readTime: string;
+  featuredImage: string | null;
+  createdAt: string;
 };
 
 const BlogPage = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Function to calculate reading time based on word count
-  const calculateReadingTime = (text: string) => {
-    const wordsPerMinute = 200; // Average reading speed
-    const wordCount = text.split(' ').length;
-    const minutes = Math.ceil(wordCount / wordsPerMinute);
-    return `${minutes} min read`;
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('/api/stories' + (activeCategory !== 'All' ? `?category=${activeCategory}` : ''));
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        const data = await response.json();
+        setBlogPosts(data);
+      } catch (err) {
+        setError('Failed to load blog posts');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, [activeCategory]);
+
+  // Function to calculate excerpt from content
+  const getExcerpt = (content: string, length: number = 150) => {
+    return content.length > length ? content.substring(0, length) + '...' : content;
   };
 
-  const blogPosts: BlogPost[] = [
-    {
-      id: 1,
-      title: "The Future of AI in Healthcare Diagnosis",
-      excerpt: "Exploring how artificial intelligence is revolutionizing diagnostic medicine and improving patient outcomes.",
-      content: "Artificial intelligence is transforming healthcare in unprecedented ways. From diagnostic algorithms that can detect diseases earlier than human doctors to predictive models that anticipate patient deterioration, AI is revolutionizing how we approach medicine. These technologies are not meant to replace healthcare professionals but to augment their capabilities, allowing them to focus on what they do best - providing compassionate care to patients. The integration of AI in healthcare systems is creating more efficient workflows, reducing medical errors, and ultimately improving patient outcomes.",
-      date: "December 27, 2025",
-      category: "AI",
-      readTime: calculateReadingTime("Exploring how artificial intelligence is revolutionizing diagnostic medicine and improving patient outcomes. Artificial intelligence is transforming healthcare in unprecedented ways. From diagnostic algorithms that can detect diseases earlier than human doctors to predictive models that anticipate patient deterioration, AI is revolutionizing how we approach medicine. These technologies are not meant to replace healthcare professionals but to augment their capabilities, allowing them to focus on what they do best - providing compassionate care to patients. The integration of AI in healthcare systems is creating more efficient workflows, reducing medical errors, and ultimately improving patient outcomes.")
-    },
-    {
-      id: 2,
-      title: "Innovative Approaches to Health Data Security",
-      excerpt: "Protecting sensitive patient information while enabling advanced analytics and AI applications.",
-      content: "Healthcare data security is a critical concern as medical institutions increasingly rely on digital systems. With the rise of AI applications in healthcare, protecting sensitive patient information while enabling advanced analytics presents unique challenges. Modern encryption techniques, blockchain technology, and federated learning approaches are creating new paradigms for secure health data management. These solutions ensure that patient privacy is maintained while still allowing researchers and clinicians to access the data they need to improve care and develop new treatments.",
-      date: "December 26, 2025",
-      category: "Technology",
-      readTime: calculateReadingTime("Protecting sensitive patient information while enabling advanced analytics and AI applications. Healthcare data security is a critical concern as medical institutions increasingly rely on digital systems. With the rise of AI applications in healthcare, protecting sensitive patient information while enabling advanced analytics presents unique challenges. Modern encryption techniques, blockchain technology, and federated learning approaches are creating new paradigms for secure health data management. These solutions ensure that patient privacy is maintained while still allowing researchers and clinicians to access the data they need to improve care and develop new treatments.")
-    },
-    {
-      id: 3,
-      title: "Medical Education in the Digital Age",
-      excerpt: "How modern approaches are leveraging technology to enhance learning and practice.",
-      content: "Medical education has undergone significant changes with the integration of digital technologies. Virtual reality simulations allow students to practice procedures in risk-free environments, while AI-powered learning platforms adapt to individual student needs. Online resources provide access to vast medical knowledge, and telemedicine experiences offer new perspectives on patient care. These innovations are preparing the next generation of physicians with skills that blend traditional medical knowledge with cutting-edge technological capabilities, creating more versatile and effective healthcare providers.",
-      date: "December 25, 2025",
-      category: "Medicine",
-      readTime: calculateReadingTime("How modern approaches are leveraging technology to enhance learning and practice. Medical education has undergone significant changes with the integration of digital technologies. Virtual reality simulations allow students to practice procedures in risk-free environments, while AI-powered learning platforms adapt to individual student needs. Online resources provide access to vast medical knowledge, and telemedicine experiences offer new perspectives on patient care. These innovations are preparing the next generation of physicians with skills that blend traditional medical knowledge with cutting-edge technological capabilities, creating more versatile and effective healthcare providers.")
-    }
-  ];
-
-  const categories = ['All', 'Medicine', 'Technology', 'AI', 'Future Innovations'];
+  const categories = ['All', 'Blog', 'Research'];
 
   const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+                          getExcerpt(post.content).toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSearch;
   });
+
+  if (loading) {
+    return (
+      <div className="blog-section">
+        <div className="container mx-auto px-4">
+          <h2>Research Insights</h2>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+            <p className="mt-4">Loading stories...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="blog-section">
+        <div className="container mx-auto px-4">
+          <h2>Research Insights</h2>
+          <div className="text-center py-12">
+            <p className="text-red-500">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="blog-section">
       <div className="container mx-auto px-4">
-        <h2 className="section-title">Research Insights</h2>
+        <h2>Research Insights</h2>
         
         <div className="category-filters">
           {categories.map(category => (
@@ -93,13 +111,21 @@ const BlogPage = () => {
         <div className="blog-grid">
           {filteredPosts.map(post => (
             <div key={post.id} className="blog-post">
-              <h3>{post.title}</h3>
-              <p>{post.excerpt}</p>
-              <div className="blog-meta">
-                <span>{post.date}</span>
-                <span>{post.readTime}</span>
+              {post.featuredImage && (
+                <div className="blog-image">
+                  <img src={post.featuredImage} alt={post.title} className="w-full h-48 object-cover" />
+                </div>
+              )}
+              <div className="blog-content">
+                <h3>{post.title}</h3>
+                {post.subtitle && <p className="blog-subtitle">{post.subtitle}</p>}
+                <p className="blog-excerpt">{getExcerpt(post.content)}</p>
+                <div className="blog-meta">
+                  <span>{post.date}</span>
+                  <span>{post.readTime}</span>
+                </div>
+                <Link href={`/blog/${post.id}`}>Read More</Link>
               </div>
-              <Link href="#">Read More</Link>
             </div>
           ))}
         </div>
