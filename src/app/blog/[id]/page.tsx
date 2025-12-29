@@ -1,5 +1,7 @@
 import BlogPostClient from './BlogPostClient';
 
+export const dynamic = 'force-static';
+
 // This function is needed for static export to know all possible dynamic routes
 export async function generateStaticParams() {
   // For static export, we return an empty array
