@@ -10,24 +10,6 @@ import Footer from '@/components/Footer';
 import ScrollOverlay from '@/components/ScrollOverlay';
 
 export default function Home() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  useEffect(() => {
-    const video = videoRef.current;
-    
-    if (video) {
-      // Simply play the video in a loop
-      video.loop = true;
-      video.play().catch(e => console.log("Autoplay prevented: ", e));
-      
-      // Clean up
-      return () => {
-        if (video) {
-          video.pause();
-        }
-      };
-    }
-  }, []);
   
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 overflow-x-hidden">
@@ -48,14 +30,14 @@ export default function Home() {
       <div className="fixed bottom-0 left-0 w-full h-screen z-20" id="innovation-section" style={{ transform: 'translateY(100%)' }}>
         <section id="innovation" className="w-full h-screen">
           <div className="w-full h-full rounded-tl-[80px] rounded-tr-[80px] relative overflow-hidden">
-            <video 
-              className="absolute inset-0 w-full h-full object-cover"
-              src="/vecteezy_seasonal-blue-sparkle-background_74140680.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              ref={videoRef}
+            <div 
+              className="absolute inset-0 w-full h-full rounded-tl-[80px] rounded-tr-[80px]"
+              style={{
+                backgroundImage: `url('/bg[g25.png')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
             />
             <div className="w-full h-full bg-black/30 rounded-tl-[80px] rounded-tr-[80px] flex items-center justify-center relative z-10">
               <div className="container mx-auto px-4 text-center">
