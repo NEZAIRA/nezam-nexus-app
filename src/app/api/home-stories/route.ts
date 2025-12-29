@@ -20,8 +20,9 @@ if (!fs.existsSync(storiesFilePath)) {
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 3;
+    // Parse the URL to get search params
+    const url = new URL(request.url);
+    const limit = url.searchParams.get('limit') ? parseInt(url.searchParams.get('limit')!) : 3;
     
     let stories = JSON.parse(fs.readFileSync(storiesFilePath, 'utf8'));
     

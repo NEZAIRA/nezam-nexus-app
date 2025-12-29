@@ -22,8 +22,9 @@ if (!fs.existsSync(storiesFilePath)) {
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category');
+    // Parse the URL to get search params
+    const url = new URL(request.url);
+    const category = url.searchParams.get('category');
     
     let stories = JSON.parse(fs.readFileSync(storiesFilePath, 'utf8'));
     
