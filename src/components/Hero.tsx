@@ -2,20 +2,39 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900">
+    <section className="w-full h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 hero-section rounded-b-[80px]">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f0f9ff\' fill-opacity=\'0.1\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%231e3a8a\' fill-opacity=\'0.05\'%3E%3Ccircle cx=\'30\' cy=\'30\' r=\'2\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+      <div 
+        style={{
+          backgroundImage: `url('/wolfgang-hasselmann-LxtPWDPf_Xs-unsplash.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/30 rounded-b-[80px]"></div>
+      </div>
       
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div className="space-y-8">
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-            <span className="text-blue-600 dark:text-blue-400">Nezaira</span>
+            <span className="relative inline-block">
+              <span className="relative z-10 text-blue-600 dark:text-blue-400">Nezaira</span>
+              <span className="absolute top-0 left-0 w-full h-full text-blue-600 dark:text-blue-400 font-bold text-5xl md:text-7xl overflow-hidden">
+                <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-40 animate-shine-text"></span>
+                <span className="invisible">Nezaira</span>
+              </span>
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl font-bold text-white mb-10 max-w-3xl mx-auto leading-relaxed">
             Advancing biotech innovation at the intersection of medicine, technology, and research.
           </p>
           
-          {/* Microscope Lens Feature Highlight */}
           <div className="mb-12 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800 max-w-2xl mx-auto">
             <div className="flex items-center justify-center mb-4">
               <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
@@ -23,10 +42,10 @@ const Hero = () => {
               <div className="w-3 h-3 rounded-full bg-blue-500"></div>
             </div>
             <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200 text-center mb-2">
-              Interactive Microscope Lens Technology
+              Digital Biotech & Medical Technology Startup
             </h3>
             <p className="text-blue-700 dark:text-blue-300 text-center text-sm mb-4">
-              Experience our cutting-edge visualization tools that bring microscopic details to life
+              Pioneering the future of medical research and biotechnology
             </p>
             <div className="flex justify-center">
               <div className="relative inline-block">
@@ -55,6 +74,17 @@ const Hero = () => {
             </Link>
           </div>
         </div>
+      </div>
+      
+      <div className="scroll-down">
+        <div className="scroll-down__icon" aria-hidden="true">
+          <svg width="20" height="31" viewBox="0 0 20 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.533203" width="19" height="29" rx="5.5" stroke="#292933" />
+            <line x1="9.83398" y1="8.15527" x2="9.83398" y2="15.1553" stroke="#292933" strokeLinecap="round">
+            </line>
+          </svg>
+        </div>
+        <div className="scroll-down__text">Scroll</div>
       </div>
     </section>
   );

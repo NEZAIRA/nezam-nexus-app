@@ -77,7 +77,7 @@ const ProductsPage = () => {
                 href="#"
                 className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
               >
-                Learn More
+                {product.name === "Supra Brain" ? "In process of developing" : product.name === "Faster" ? "modern fasting app v1 published 2025/12/26" : "Learn More"}
               </Link>
             </div>
           ))}

@@ -12,18 +12,36 @@ const AboutPage = () => {
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 mb-16 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Our Mission</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">About Nezaira</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Nezaira was founded by MOHAMMADMAHDI NEZAMOLESLAMI in 2025 and is currently working to enhance healthcare systems 
+            by connecting healthcare into technological fields like AI (like the Supra Brain AI assistant project) 
+            and developing applications to enhance quality of life (Faster).
+          </p>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            Our next goal and field is to make healthier foods by using biotech technology, 
+            continuing our mission to improve human health through innovative solutions.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400">
             Nezaira is dedicated to advancing the intersection of technology, medicine, and future research. 
             We build intelligent systems for a healthier tomorrow, combining cutting-edge AI with rigorous 
             scientific methodology to solve complex healthcare challenges.
           </p>
-          <p className="text-gray-600 dark:text-gray-400">
-            Our platform serves as a bridge between medical research and technological innovation, 
-            providing tools and insights that accelerate the development of next-generation healthcare solutions.
-          </p>
         </div>
 
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 mb-16 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">CEO</h2>
+          <div className="flex items-center">
+            <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-6">
+              <i className="fas fa-user text-blue-600 dark:text-blue-400 text-2xl"></i>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">MOHAMMADMAHDI NEZAMOLESLAMI</h3>
+              <p className="text-gray-600 dark:text-gray-400">Founder & CEO</p>
+            </div>
+          </div>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
             <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4 mx-auto">

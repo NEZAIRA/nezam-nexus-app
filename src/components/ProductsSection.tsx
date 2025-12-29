@@ -35,7 +35,7 @@ const ProductsSection = () => {
   };
 
   return (
-    <section id="products" className="py-16">
+    <section id="products" className="py-16 products-section">
       <div className="max-w-4xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Innovation Portfolio</h2>
         
@@ -52,11 +52,19 @@ const ProductsSection = () => {
                       {product.category}
                     </span>
                     <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">{product.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-lg mx-auto md:mx-0">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-lg mx-auto md:mx-0">
                       {product.description}
                     </p>
-                    <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
-                      Learn More
+                    {product.name === "Supra Brain" && (
+                      <ul className="text-gray-600 dark:text-gray-400 mb-6 max-w-lg mx-auto md:mx-0 list-disc pl-5 space-y-1">
+                        <li>Advanced NLP for medical texts</li>
+                        <li>Real-time research analysis</li>
+                        <li>Predictive healthcare insights</li>
+                        <li>Multi-modal data processing</li>
+                      </ul>
+                    )}
+                    <button className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm mt-6">
+                      {product.name === "Supra Brain" ? "In process of developing" : product.name === "Faster" ? "modern fasting app v1 published 2025/12/26" : "Learn More"}
                     </button>
                   </div>
                   

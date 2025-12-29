@@ -47,7 +47,7 @@ const BlogSection = () => {
 
   if (loading) {
     return (
-      <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+      <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm blog-section">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Research & Insights</h2>
           <p className="text-gray-600 dark:text-gray-400">Scientific discoveries and insights in medicine, technology, and biotech innovation.</p>
@@ -63,7 +63,7 @@ const BlogSection = () => {
 
   if (error) {
     return (
-      <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+      <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm blog-section">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Research & Insights</h2>
           <p className="text-gray-600 dark:text-gray-400">Scientific discoveries and insights in medicine, technology, and biotech innovation.</p>
@@ -77,7 +77,7 @@ const BlogSection = () => {
   }
 
   return (
-    <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+    <section id="blog" className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm blog-section">
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Research & Insights</h2>
         <p className="text-gray-600 dark:text-gray-400">Scientific discoveries and insights in medicine, technology, and biotech innovation.</p>

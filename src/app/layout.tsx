@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@fontsource/inter";
 import "./globals.css";
-import MicroscopeLens from "./../components/MicroscopeLens";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,9 +44,11 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} antialiased`}
+        style={{ margin: 0, padding: 0 }}
       >
-        <MicroscopeLens />
-        {children}
+        <main style={{ position: 'relative', minHeight: '100vh' }}>
+          {children}
+        </main>
       </body>
     </html>
   );

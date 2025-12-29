@@ -18,7 +18,7 @@ const Footer = () => {
           
           <div className="border-t border-gray-200 dark:border-gray-800 pt-8 mt-8">
             <div className="text-gray-500 dark:text-gray-500 text-sm">
-              &copy; {new Date().getFullYear()} Nezaira. All rights reserved.
+              &copy; 2025 Nezaira. All rights reserved.
             </div>
           </div>
         </div>

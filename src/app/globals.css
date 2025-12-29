@@ -614,22 +614,108 @@ footer {
 }
 
 /* Text utilities */
-.text-cyan-400 {
-  color: #22d3ee;
-}
-
-.text-cyan-300 {
-  color: #67e8f9;
-}
-
-.text-gray-300 {
-  color: #d1d5db;
-}
-
-.text-gray-400 {
-  color: #9ca3af;
-}
-
 .text-gray-900 {
   color: #111827;
+}
+
+/* Hero section styling */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Content sections */
+main {
+  position: relative;
+  background: white;
+  /* Add a smooth scrolling behavior */
+  scroll-behavior: smooth;
+}
+
+
+
+body {
+  overflow-x: hidden;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) skewX(-15deg);
+  }
+}
+
+@keyframes shine-text {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+    width: 100%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+    width: 100%;
+  }
+}
+
+.animate-shine {
+  animation: shine 3s infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+}
+
+.animate-shine-text {
+  animation: shine-text 3s infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scroll-down__icon {
+  width: 2rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  animation: scrollBounce 2s infinite ease-in-out;
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.scroll-down__text {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
