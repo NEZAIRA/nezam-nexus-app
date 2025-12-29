@@ -16,23 +16,33 @@ export default function Home() {
     const video = videoRef.current;
     
     if (video) {
-      // Function to handle scroll events and check if page 2 is fully visible
+      let lastScrollY = window.scrollY;
+      
+      // Function to handle scroll events and play video from beginning on scroll
       const handleScroll = () => {
-        // Calculate scroll progress based on the scrollable area
-        const scrollY = window.scrollY;
-        const windowHeight = window.innerHeight;
+        const currentScrollY = window.scrollY;
+        const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
         
-        // Based on ScrollOverlay logic, innovation section is fully visible when scrollY >= windowHeight
-        // At that point, the section has moved from translateY(100%) to translateY(0%)
-        if (scrollY >= windowHeight) {
-          // Page 2 is fully visible, play the video
-          if (video.ended) {
-            video.currentTime = 0;
-          }
+        // Calculate if page 2 is visible
+        const windowHeight = window.innerHeight;
+        const isPage2Visible = currentScrollY >= windowHeight;
+        
+        if (isPage2Visible) {
+          // Restart the video from the beginning whenever user scrolls
+          video.currentTime = 0;
           video.play().catch(e => console.log("Autoplay prevented: ", e));
-        } else {
-          // Page 2 is not fully visible, pause the video
-          video.pause();
+          
+          // Pause the video when it ends
+          const handleVideoEnd = () => {
+            video.pause();
+            video.currentTime = 0; // Reset to beginning when ended
+            video.removeEventListener('ended', handleVideoEnd);
+          };
+          
+          // Remove any existing event listener to avoid duplicates
+          video.removeEventListener('ended', handleVideoEnd);
+          video.addEventListener('ended', handleVideoEnd);
         }
       };
       
@@ -45,6 +55,10 @@ export default function Home() {
       // Clean up
       return () => {
         window.removeEventListener('scroll', handleScroll);
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
       };
     }
   }, []);
