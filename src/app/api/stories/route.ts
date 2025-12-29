@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-static';
+
 const storiesFilePath = path.join(process.cwd(), 'data', 'stories.json');
 
 // Ensure data directory exists
