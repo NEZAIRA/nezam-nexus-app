@@ -11,13 +11,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Nezaira | Intelligent Systems for Healthcare Innovation",
-  description: "Nezaira - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
+  description: "Nezaira builds intelligent digital health and biotech systems at the intersection of medicine and technology, advancing human health and next-generation healthcare.",
   icons: {
     icon: '/favicon.ico',
   },
   openGraph: {
     title: "Nezaira | Intelligent Systems for Healthcare Innovation",
-    description: "Nezaira - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
+    description: "Nezaira builds intelligent digital health and biotech systems at the intersection of medicine and technology, advancing human health and next-generation healthcare.",
     url: "https://nezaira.com",
     siteName: "Nezaira",
     type: "website",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nezaira | Intelligent Systems for Healthcare Innovation",
-    description: "Nezaira - Building intelligent systems for medicine and technology. AI-powered healthcare solutions by Mahdi, an MBBS student passionate about health technology.",
+    description: "Nezaira builds intelligent digital health and biotech systems at the intersection of medicine and technology, advancing human health and next-generation healthcare.",
   },
 };
 

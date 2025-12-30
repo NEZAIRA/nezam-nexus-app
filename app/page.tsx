@@ -100,6 +100,8 @@ export default function Home() {
                     Discover our latest research, innovations, and insights in biotechnology.
                   </p>
                         
+
+                  
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="p-6 bg-white/20 backdrop-blur-sm rounded-xl shadow-lg border border-white/30">
                       <div className="w-12 h-12 rounded-full bg-cyan-500/30 flex items-center justify-center mx-auto mb-4">
