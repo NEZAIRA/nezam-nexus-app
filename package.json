@@ -11,6 +11,8 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@lit/localize": "^0.12.2",
+    "@lit/reactive-element": "^2.1.2",
     "@uiw/react-md-editor": "^4.0.11",
     "next": "16.1.1",
     "react": "19.2.3",

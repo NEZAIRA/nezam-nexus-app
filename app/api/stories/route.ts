@@ -1,36 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// In a real application, this would connect to a database
-// For now, we'll use a simple file-based storage approach
-import fs from 'fs';
-import path from 'path';
-
 export const dynamic = 'force-static';
 
-const storiesFilePath = path.join(process.cwd(), 'data', 'stories.json');
-
-// Ensure data directory exists
-const dataDir = path.join(process.cwd(), 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
-// Initialize stories file if it doesn't exist
-if (!fs.existsSync(storiesFilePath)) {
-  fs.writeFileSync(storiesFilePath, JSON.stringify([]));
-}
+// Mock data for static export
+const mockStories = [
+  {
+    id: 1,
+    title: "Breakthrough in Biotech Research",
+    excerpt: "Our latest research in biotechnology is paving the way for new medical treatments.",
+    category: "Research",
+    date: "2025-01-15",
+    content: "Full content about the biotech research breakthrough..."
+  },
+  {
+    id: 2,
+    title: "AI in Healthcare Innovation",
+    excerpt: "How artificial intelligence is transforming modern healthcare systems.",
+    category: "Innovation",
+    date: "2025-01-10",
+    content: "Full content about AI in healthcare..."
+  },
+  {
+    id: 3,
+    title: "Future of Digital Health",
+    excerpt: "Exploring the next generation of digital health solutions.",
+    category: "Technology",
+    date: "2025-01-05",
+    content: "Full content about digital health future..."
+  }
+];
 
 export async function GET(request: NextRequest) {
   try {
-    // Parse the URL to get search params
-    const url = new URL(request.url);
-    const category = url.searchParams.get('category');
-    
-    let stories = JSON.parse(fs.readFileSync(storiesFilePath, 'utf8'));
-    
-    if (category && category !== 'All') {
-      stories = stories.filter((story: any) => story.category === category);
-    }
+    // For static export, return all stories
+    // URL parameters are not supported in static export
+    const stories = mockStories;
     
     return NextResponse.json(stories);
   } catch (error) {

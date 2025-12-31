@@ -41,6 +41,21 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
+        <script
+          type="importmap"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              imports: {
+                lit: "https://esm.sh/lit@^3.3.0",
+                "lit/": "https://esm.sh/lit@^3.3.0/",
+                "@lit/context": "https://esm.sh/@lit/context@^1.1.5",
+                "@google/genai": "https://esm.sh/@google/genai@^1.15.0",
+                three: "https://esm.sh/three@^0.176.0",
+                "three/": "https://esm.sh/three@^0.176.0/"
+              }
+            })
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} antialiased`}
@@ -49,6 +64,7 @@ export default function RootLayout({
         <main style={{ position: 'relative', minHeight: '100vh' }}>
           {children}
         </main>
+        {/* SupraBrain chatbot will be integrated via external CDN in production */}
       </body>
     </html>
   );
