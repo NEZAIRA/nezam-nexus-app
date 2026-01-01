@@ -18,19 +18,19 @@ interface TranscriptItem {
 
 @customElement('gdm-live-audio')
 export class GdmLiveAudio extends LitElement {
-  @state() isRecording = false; 
-  @state() status = 'SUPRABRAIN IDLE';
-  @state() error = '';
-  @state() isOnline = navigator.onLine;
-  @state() isOpen = false;
-  @state() speakingMessageId: string | null = null; 
+  @state() protected isRecording = false; 
+  @state() protected status = 'SUPRABRAIN IDLE';
+  @state() protected error = '';
+  @state() protected isOnline = navigator.onLine;
+  @state() protected isOpen = false;
+  @state() protected speakingMessageId: string | null = null; 
 
-  @state() transcriptionHistory: TranscriptItem[] = [];
-  @state() currentInput = '';
-  @state() currentOutput = '';
+  @state() protected transcriptionHistory: TranscriptItem[] = [];
+  @state() protected currentInput = '';
+  @state() protected currentOutput = '';
 
-  @query('.transcript-area') transcriptArea!: HTMLElement;
-  @query('.text-input') textInputField!: HTMLInputElement;
+  @query('.transcript-area') protected transcriptArea!: HTMLElement;
+  @query('.text-input') protected textInputField!: HTMLInputElement;
 
   private sessionPromise: Promise<Session> | null = null;
   private inputAudioContext = new (window.AudioContext ||
@@ -38,8 +38,8 @@ export class GdmLiveAudio extends LitElement {
   private outputAudioContext = new (window.AudioContext ||
     (window as any).webkitAudioContext)({sampleRate: 24000});
   
-  @state() inputNode = this.inputAudioContext.createGain();
-  @state() outputNode = this.outputAudioContext.createGain();
+  @state() protected inputNode = this.inputAudioContext.createGain();
+  @state() protected outputNode = this.outputAudioContext.createGain();
   
   private nextStartTime = 0;
   private activeTTSNode: AudioBufferSourceNode | null = null;
@@ -315,9 +315,9 @@ export class GdmLiveAudio extends LitElement {
           onopen: () => this.updateStatus('SUPRABRAIN ONLINE'),
           onmessage: async (message: LiveServerMessage) => {
             const audioData = message.serverContent?.modelTurn?.parts?.[0]?.inlineData;
-            if (audioData && this.isRecording) {
+            if (audioData?.data && this.isRecording) {
               this.nextStartTime = Math.max(this.nextStartTime, this.outputAudioContext.currentTime);
-              const audioBuffer = await decodeAudioData(decode(audioData.data), this.outputAudioContext, 24000, 1);
+              const audioBuffer = await decodeAudioData(audioData.data);
               const source = this.outputAudioContext.createBufferSource();
               source.buffer = audioBuffer;
               source.connect(this.outputNode);
@@ -378,12 +378,7 @@ export class GdmLiveAudio extends LitElement {
             2. BEHAVIOR: Responses must be 1-3 sentences maximum.
             3. TONE: Clinical, intelligent, and informative.
             4. REFUSAL: If asked to generate code, images, or other media, respond with: "Nezaira focuses on medical research and healthcare solutions."`,
-          generationConfig: {
-            modalities: [Modality.TEXT, Modality.AUDIO],
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: 'Aoede' } // or 'Charon'
-            }
-          }
+          
         }
       });
     } catch (e: any) {
@@ -411,7 +406,7 @@ export class GdmLiveAudio extends LitElement {
           const audioData = e.inputBuffer.getChannelData(0);
           const blob = createBlob(audioData);
           const file = new File([blob], 'audio.wav', { type: 'audio/wav' });
-          session.send({ audio: file });
+          (session as any).send({ audio: file });
         }
       };
     } catch (e: any) {
@@ -441,7 +436,7 @@ export class GdmLiveAudio extends LitElement {
     if (!this.sessionPromise || !this.textInputField.value.trim()) return;
     this.updateStatus('PROCESSING...');
     const session = await this.sessionPromise;
-    session.send({ text: this.textInputField.value.trim() });
+    (session as any).send({ text: this.textInputField.value.trim() });
     this.textInputField.value = '';
   }
 

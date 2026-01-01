@@ -49,10 +49,11 @@ export function decode(base64String: string): Uint8Array {
 }
 
 export async function decodeAudioData(
-  base64String: string,
-  audioContext: AudioContext
+  base64String: string
 ): Promise<AudioBuffer> {
   const audioData = decode(base64String);
+  const audioContext = new (window.AudioContext ||
+    (window as any).webkitAudioContext)({sampleRate: 24000});
   return new Promise((resolve, reject) => {
     const arrayBuffer = audioData.buffer.slice() as ArrayBuffer;
     audioContext.decodeAudioData(
