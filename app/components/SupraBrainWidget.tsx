@@ -20,7 +20,7 @@ export default function SupraBrainWidget() {
           <button id="sb-close" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
         </div>
         <div id="sb-body" style="flex: 1; padding: 15px; overflow-y: auto; background: #0f172a; color: #cbd5e1;">
-          <p>Hello! I'm SupraBrain, your AI assistant for Nezaira. How can I help you today?</p>
+          <p>Hello! I'm SupraBrain, your AI assistant for Nezaira powered by Google AI. How can I help you today?</p>
         </div>
         <div id="sb-footer" style="padding: 15px; background: #1e293b; display: flex; border-top: 1px solid #334155; border-radius: 0 0 24px 24px;">
           <input type="text" id="sb-input" placeholder="Ask about Nezaira..." style="flex: 1; padding: 10px; border: 1px solid #475569; border-radius: 8px; background: #1e293b; color: white;" />
@@ -70,11 +70,42 @@ export default function SupraBrainWidget() {
         userMsg.style.color = '#93c5fd';
         body.appendChild(userMsg);
 
-        // Add bot response
+        // Add bot response using Google AI API
         const botMsg = document.createElement('p');
-        botMsg.innerHTML = '<strong>SupraBrain:</strong> I can not proccess your message right now';
+        botMsg.innerHTML = '<strong>SupraBrain:</strong> Processing...';
         botMsg.style.color = '#a78bfa';
         body.appendChild(botMsg);
+        
+        // Google AI API call
+        const API_KEY = 'gen-lang-client-0296186778';
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+        
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: message
+              }]
+            }]
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.candidates && data.candidates[0].content.parts[0].text) {
+            const aiResponse = data.candidates[0].content.parts[0].text;
+            botMsg.innerHTML = '<strong>SupraBrain:</strong> ' + aiResponse;
+          } else {
+            botMsg.innerHTML = '<strong>SupraBrain:</strong> I can not proccess your message right now';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          botMsg.innerHTML = '<strong>SupraBrain:</strong> I can not proccess your message right now';
+        });
 
         input.value = '';
         body.scrollTop = body.scrollHeight;
