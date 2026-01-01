@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@fontsource/inter";
 import "./globals.css";
-import SupraBrainWidget from "./components/SupraBrainWidget";
+
 
 
 const inter = Inter({
@@ -43,12 +43,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               imports: {
-                lit: "https://esm.sh/lit@^3.3.0",
-                "lit/": "https://esm.sh/lit@^3.3.0/",
-                "@lit/context": "https://esm.sh/@lit/context@^1.1.5",
-                "@google/genai": "https://esm.sh/@google/genai@^1.15.0",
-                three: "https://esm.sh/three@^0.176.0",
-                "three/": "https://esm.sh/three@^0.176.0/"
+                lit: "https://esm.run/lit@^3.3.0",
+                "lit/": "https://esm.run/lit@^3.3.0/",
+                "@lit/context": "https://esm.run/@lit/context@^1.1.5",
+                "@google/genai": "https://esm.run/@google/genai@^1.15.0",
+                three: "https://esm.run/three@^0.176.0",
+                "three/": "https://esm.run/three@^0.176.0/"
               }
             })
           }}
@@ -61,7 +61,29 @@ export default function RootLayout({
         <main style={{ position: 'relative', minHeight: '100vh' }}>
           {children}
         </main>
-        <SupraBrainWidget />
+        <div id="supra-brain-widget"></div>
+        <script
+          type="module"
+          dangerouslySetInnerHTML={{
+            __html: `
+              import {GoogleGenAI, LiveServerMessage, Modality, Session} from '@google/genai';
+              import {LitElement, css, html} from 'lit';
+              import {customElement, state, query} from 'lit/decorators.js';
+              
+              // Import the SupraBrain Web Component
+              import '../SupraBrain-chatbot/index';
+              
+              // Initialize the widget after the page loads
+              document.addEventListener("DOMContentLoaded", function() {
+                const widget = document.getElementById('supra-brain-widget');
+                if (widget && !widget.querySelector('gdm-live-audio')) {
+                  const suprabrain = document.createElement('gdm-live-audio');
+                  widget.appendChild(suprabrain);
+                }
+              });
+            `
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function() {
