@@ -66,12 +66,8 @@ export default function RootLayout({
           type="module"
           dangerouslySetInnerHTML={{
             __html: `
-              import {GoogleGenAI, LiveServerMessage, Modality, Session} from '@google/genai';
-              import {LitElement, css, html} from 'lit';
-              import {customElement, state, query} from 'lit/decorators.js';
-              
               // Import the SupraBrain Web Component
-              import '../SupraBrain-chatbot/index';
+              import('../SupraBrain-chatbot/index');
               
               // Initialize the widget after the page loads
               document.addEventListener("DOMContentLoaded", function() {
@@ -192,6 +188,25 @@ export default function RootLayout({
 })();`
           }}
         />
+        
+        {/* Contact widgets */}
+        <div className="contact-widgets" style={{ position: 'fixed', left: '20px', bottom: '20px', zIndex: 9999, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <a href="tel:+1234567890" style={{ textDecoration: 'none' }}>
+            <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', boxShadow: '0 4px 15px rgba(0, 210, 255, 0.4)' }}>
+              <i className="fas fa-phone" style={{ fontSize: '18px' }}></i>
+            </div>
+          </a>
+          <a href="mailto:contact@nezaira.com" style={{ textDecoration: 'none' }}>
+            <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', boxShadow: '0 4px 15px rgba(0, 210, 255, 0.4)' }}>
+              <i className="fas fa-envelope" style={{ fontSize: '18px' }}></i>
+            </div>
+          </a>
+          <a href="https://maps.google.com/?q=Nezaira" target="_blank" style={{ textDecoration: 'none' }}>
+            <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'linear-gradient(135deg, #00d2ff, #3a7bd5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', boxShadow: '0 4px 15px rgba(0, 210, 255, 0.4)' }}>
+              <i className="fas fa-map-marker-alt" style={{ fontSize: '18px' }}></i>
+            </div>
+          </a>
+        </div>
       </body>
     </html>
   );
