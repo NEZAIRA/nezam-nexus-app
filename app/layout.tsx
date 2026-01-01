@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@fontsource/inter";
 import "./globals.css";
+import SupraBrainWidget from "./components/SupraBrainWidget";
 
 
 const inter = Inter({
@@ -64,7 +65,7 @@ export default function RootLayout({
         <main style={{ position: 'relative', minHeight: '100vh' }}>
           {children}
         </main>
-        <div id="supra-brain-widget"></div>
+        <SupraBrainWidget />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function() {
