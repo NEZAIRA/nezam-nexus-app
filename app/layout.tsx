@@ -64,7 +64,8 @@ export default function RootLayout({
         <main style={{ position: 'relative', minHeight: '100vh' }}>
           {children}
         </main>
-        {/* SupraBrain chatbot will be integrated via external CDN in production */}
+        <div dangerouslySetInnerHTML={{ __html: '<gdm-live-audio></gdm-live-audio>' }} />
+        <script type="module" src="https://cdn.jsdelivr.net/gh/NEZAIRA/SupraBrain-chatbot@main/dist/index.js"></script>
       </body>
     </html>
   );
