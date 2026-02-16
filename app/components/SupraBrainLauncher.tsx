@@ -32,6 +32,7 @@ export default function SupraBrainLauncher() {
     <>
       {/* Launcher Button */}
       <div
+        className="supra-launcher-btn"
         onClick={() => {
           setShowChat(!showChat);
           setShowWelcome(false); // Hide welcome when opening chat
@@ -85,7 +86,7 @@ export default function SupraBrainLauncher() {
 
       {/* Welcome Message */}
       {showWelcome && !showChat && (
-        <div style={{
+        <div className="supra-welcome-msg" style={{
           position: 'fixed',
           bottom: '110px',
           right: '30px',
@@ -121,6 +122,34 @@ export default function SupraBrainLauncher() {
           to {
             opacity: 1;
             transform: scale(1) translateY(0);
+          }
+        }
+
+        /* Mobile responsive adjustments for launcher */
+        @media (max-width: 480px) {
+          .supra-launcher-btn {
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 56px !important;
+            height: 56px !important;
+          }
+
+          .supra-welcome-msg {
+            bottom: 90px !important;
+            right: 20px !important;
+            max-width: calc(100vw - 100px) !important;
+            font-size: 13px !important;
+            padding: 12px 16px !important;
+          }
+        }
+
+        /* Safe area support */
+        @supports (padding: max(0px)) {
+          @media (max-width: 480px) {
+            .supra-launcher-btn {
+              bottom: max(20px, env(safe-area-inset-bottom)) !important;
+              right: max(20px, env(safe-area-inset-right)) !important;
+            }
           }
         }
       `}</style>

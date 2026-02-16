@@ -322,12 +322,185 @@
 }
 
 /* Mobile Responsive */
+
+/* Tablets and small laptops */
+@media (max-width: 768px) {
+  .supra-chat-widget {
+    width: 360px;
+    height: 500px;
+  }
+
+  .supra-chat-header {
+    padding: 12px 16px;
+  }
+
+  .supra-chat-title {
+    font-size: 16px;
+  }
+
+  .supra-chat-subtitle {
+    font-size: 12px;
+  }
+}
+
+/* Mobile phones */
 @media (max-width: 480px) {
   .supra-chat-widget {
-    width: calc(100vw - 20px);
-    height: calc(100vh - 120px);
-    bottom: 10px;
-    right: 10px;
-    border-radius: 16px;
+    width: calc(100vw - 16px);
+    height: calc(100vh - 100px);
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
+    border-radius: 20px;
+    max-height: calc(100vh - 100px);
+  }
+
+  .supra-chat-header {
+    padding: 12px 16px;
+  }
+
+  .supra-chat-title {
+    font-size: 16px;
+  }
+
+  .supra-chat-subtitle {
+    font-size: 11px;
+    margin-left: 40px;
+  }
+
+  .supra-close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 24px;
+  }
+
+  .supra-orb {
+    width: 28px;
+    height: 28px;
+  }
+
+  .supra-orb-core {
+    width: 10px;
+    height: 10px;
+  }
+
+  .supra-chat-messages {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .supra-msg-bubble {
+    font-size: 13px;
+    padding: 10px 14px;
+    max-width: 85%;
+  }
+
+  .supra-welcome-message {
+    padding: 20px 12px;
+  }
+
+  .supra-welcome-message p {
+    font-size: 13px;
+  }
+
+  .supra-chat-input-row {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .supra-chat-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 10px 14px;
+    min-height: 40px;
+  }
+
+  .supra-chat-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .supra-chat-send svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Small mobile phones */
+@media (max-width: 360px) {
+  .supra-chat-widget {
+    width: calc(100vw - 12px);
+    height: calc(100vh - 90px);
+    bottom: 6px;
+    right: 6px;
+    left: 6px;
+  }
+
+  .supra-msg-bubble {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  .supra-close-btn,
+  .supra-chat-send {
+    /* Larger touch targets on touch devices */
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .supra-chat-input {
+    /* Better touch input */
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+  }
+
+  /* Remove hover effects on touch devices */
+  .supra-close-btn:hover {
+    background: transparent;
+  }
+
+  .supra-chat-send:hover:not(:disabled) {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .supra-chat-widget {
+    height: calc(100vh - 60px);
+    max-height: calc(100vh - 60px);
+  }
+
+  .supra-chat-messages {
+    padding: 8px;
+  }
+
+  .supra-chat-input-row {
+    padding: 8px;
+  }
+}
+
+/* Safe area insets for iOS notch/home indicator */
+@supports (padding: max(0px)) {
+  .supra-chat-widget {
+    bottom: max(8px, env(safe-area-inset-bottom));
+    right: max(8px, env(safe-area-inset-right));
+  }
+
+  @media (max-width: 480px) {
+    .supra-chat-widget {
+      left: max(8px, env(safe-area-inset-left));
+      bottom: max(8px, env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .supra-orb {
+    box-shadow: 0 4px 16px rgba(0, 210, 255, 0.4);
   }
 }

@@ -16,6 +16,7 @@
     "@lit/localize": "^0.12.2",
     "@lit/reactive-element": "^2.1.2",
     "@uiw/react-md-editor": "^4.0.11",
+    "groq-sdk": "^0.37.0",
     "lit": "^3.2.1",
     "next": "16.1.1",
     "react": "19.2.3",

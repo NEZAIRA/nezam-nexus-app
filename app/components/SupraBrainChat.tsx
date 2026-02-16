@@ -23,7 +23,16 @@ function sendMessageToConversation(conversationId: string, content: string) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content, conversation_id: conversationId }),
-  }).then((res) => res.json());
+  }).then(async (res) => {
+    const data = await res.json();
+
+    // Check if response is not ok (status >= 400)
+    if (!res.ok) {
+      throw new Error(data.error || `HTTP error ${res.status}`);
+    }
+
+    return data;
+  });
 }
 
 export default function SupraBrainChat({ onClose }: { onClose: () => void }) {
@@ -92,14 +101,24 @@ export default function SupraBrainChat({ onClose }: { onClose: () => void }) {
         meta: meta || {},
       };
       setMessages((prev) => [...prev, finalMsg]);
-    } catch (e) {
+    } catch (e: any) {
       console.error('Error sending message:', e);
       setShowTyping(false);
+
+      let errorText = "I'm having trouble connecting right now. Please try again.";
+
+      // Handle rate limit errors (check message for rate limit keywords)
+      const errorMessage = e.message?.toLowerCase() || '';
+      if (errorMessage.includes('rate limit') ||
+          errorMessage.includes('too many') ||
+          errorMessage.includes('429')) {
+        errorText = "⏳ You've sent too many messages. Please wait a minute before trying again.";
+      }
 
       const errorMsg: Message = {
         id: `error-${Date.now()}`,
         sender: 'ai',
-        text: "I'm having trouble connecting right now. Please try again.",
+        text: errorText,
       };
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
@@ -117,14 +136,14 @@ export default function SupraBrainChat({ onClose }: { onClose: () => void }) {
             ×
           </button>
         </div>
-        <div className="supra-chat-subtitle">Medical research assistant</div>
+        <div className="supra-chat-subtitle">Medical assistant</div>
       </div>
 
       <div className="supra-chat-messages">
         {messages.length === 0 && (
           <div className="supra-welcome-message">
-            <p>👋 Hi! I'm SupraBrain, your medical research assistant.</p>
-            <p>Ask me about medical concepts, research, or health topics!</p>
+            <p>👋 Hi! I'm SupraBrain, your medical assistant.</p>
+            <p>Ask me about medical concepts or health topics!</p>
           </div>
         )}
 
@@ -140,7 +159,7 @@ export default function SupraBrainChat({ onClose }: { onClose: () => void }) {
       <div className="supra-chat-input-row">
         <textarea
           className="supra-chat-input"
-          placeholder="Ask about medical research..."
+          placeholder="Ask about health topics..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}

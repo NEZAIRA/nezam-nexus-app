@@ -1,7 +1,8 @@
-import { HfInference } from '@huggingface/inference';
+import Groq from 'groq-sdk';
 import { NextResponse } from 'next/server';
+import { checkRateLimit } from '../lib/rateLimiter';
 
-const hf = new HfInference(process.env.HUGGINGFACE_API_TOKEN);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const SYSTEM_PROMPT = `You are SupraBrain, a medical research assistant developed by Nezaira.
 
@@ -14,33 +15,64 @@ Guidelines:
 
 export async function POST(request: Request) {
   try {
+    // Rate limiting: Get client IP
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded ? forwarded.split(',')[0] : 'unknown';
+
+    // Check rate limit (20 requests per minute per IP)
+    const rateLimit = checkRateLimit(ip, 20, 60000);
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: 'Rate limit exceeded. Please try again later.',
+          resetTime: rateLimit.resetTime
+        },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': '20',
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': rateLimit.resetTime.toString(),
+          }
+        }
+      );
+    }
+
     const { content, conversation_id } = await request.json();
 
     if (!content?.trim()) {
       return NextResponse.json({ error: 'Invalid message' }, { status: 400 });
     }
 
-    const response = await hf.textGeneration({
-      model: 'mistralai/Mistral-7B-Instruct-v0.2',
-      inputs: `${SYSTEM_PROMPT}\n\nUser: ${content}\n\nAssistant:`,
-      parameters: {
-        max_new_tokens: 500,
-        temperature: 0.7,
-        top_p: 0.95,
-        return_full_text: false,
-      },
+    const response = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: content }
+      ],
+      max_tokens: 500,
+      temperature: 0.7,
     });
 
+    const answer = response.choices[0]?.message?.content || 'No response generated';
+
     return NextResponse.json({
-      answer: response.generated_text.trim(),
+      answer: answer.trim(),
       meta: {
-        model: 'mistralai/Mistral-7B-Instruct-v0.2',
+        model: 'llama-3.3-70b-versatile',
         conversation_id: conversation_id || 'default',
-        provider: 'huggingface',
+        provider: 'groq',
       },
+    }, {
+      headers: {
+        'X-RateLimit-Limit': '20',
+        'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+        'X-RateLimit-Reset': rateLimit.resetTime.toString(),
+      }
     });
   } catch (error: any) {
-    console.error('HuggingFace API Error:', error);
+    console.error('Groq API Error:', error);
     return NextResponse.json(
       { error: 'Failed to generate response', details: error.message },
       { status: 500 }
