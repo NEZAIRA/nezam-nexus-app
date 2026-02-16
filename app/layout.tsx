@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   title: "Nezaira | Intelligent Systems for Healthcare Innovation",
   description: "Nezaira builds intelligent digital health and biotech systems at the intersection of medicine and technology, advancing human health and next-generation healthcare.",
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: '/favicon.png',
   },
   openGraph: {
     title: "Nezaira | Intelligent Systems for Healthcare Innovation",
