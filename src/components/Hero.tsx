@@ -1,10 +1,16 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const BiotechCanvas = dynamic(() => import('./biotech/BiotechCanvas'), {
+  ssr: false,
+  loading: () => null,
+});
 
 const Hero = () => {
   return (
     <section className="w-full h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 hero-section rounded-b-[80px]">
       {/* Subtle background pattern */}
-      <div 
+      <div
         style={{
           backgroundImage: `url('/wolfgang-hasselmann-LxtPWDPf_Xs-unsplash.jpg')`,
           backgroundSize: 'cover',
@@ -19,7 +25,10 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-black/30 rounded-b-[80px]"></div>
       </div>
-      
+
+      {/* Futuristic Biotech Animation */}
+      <BiotechCanvas />
+
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <div className="space-y-8">
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
