@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 export default function HeartbeatMonitor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
   const dataPointsRef = useRef<number[]>([]);
   const xPositionRef = useRef(0);
   const phaseRef = useRef(0);
