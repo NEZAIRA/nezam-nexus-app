@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 
@@ -11,8 +12,15 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
-            Nezaira
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/new_logo.png"
+              alt="Nezaira"
+              width={36}
+              height={36}
+              className="object-contain"
+            />
+            <span className="text-2xl font-bold text-gray-900 dark:text-white">Nezaira</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
