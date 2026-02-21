@@ -89,7 +89,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">Location</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Global Innovation Hub<br />Biotech Research Center</p>
+                    <p className="text-gray-600 dark:text-gray-400">Xi'an, China</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -100,7 +100,7 @@ const ContactPage = () => {
                     <h3 className="font-semibold text-gray-900 dark:text-white">Follow Us</h3>
                     <div className="flex space-x-4 mt-2">
                       <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
-                        <i className="fab fa-twitter text-xl"></i>
+                        <i className="fab fa-x-twitter text-xl"></i>
                       </Link>
                       <Link href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
                         <i className="fab fa-linkedin text-xl"></i>

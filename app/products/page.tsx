@@ -29,6 +29,19 @@ const ProductsPage = () => {
         "Predictive health analytics",
         "Integration with wearables"
       ]
+    },
+    {
+      id: 3,
+      name: "Mica1",
+      description: "Smart gadget with 7 modes for monitoring health condition with valuing privacy of users.",
+      icon: "fa-microchip",
+      category: "In process of developing",
+      features: [
+        "7 health monitoring modes",
+        "Edge AI — data stays on device",
+        "Orthopedic & cardiovascular sensing",
+        "Fluid-shift detection for space transit"
+      ]
     }
   ];
 
@@ -42,7 +55,7 @@ const ProductsPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <div 
               key={product.id} 
@@ -77,7 +90,7 @@ const ProductsPage = () => {
                 href="#"
                 className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
               >
-                {product.name === "Supra Brain" ? "In process of developing" : product.name === "Faster" ? "modern fasting app v1 published 2025/12/26" : "Learn More"}
+                {product.name === "Supra Brain" ? "In process of developing" : product.name === "Faster" ? "modern fasting app v1 published 2025/12/26" : product.name === "Mica1" ? "In process of developing" : "Learn More"}
               </Link>
             </div>
           ))}
