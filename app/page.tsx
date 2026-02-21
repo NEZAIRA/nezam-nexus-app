@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ProgressTimeline from '@/components/ProgressTimeline';
+import StatsStrip from '@/components/StatsStrip';
 import PrototypeShowcase from '@/components/PrototypeShowcase';
 import Footer from '@/components/Footer';
 import ScrollOverlay from '@/components/ScrollOverlay';
@@ -206,6 +207,7 @@ export default function Home() {
 
       {/* New Sections - Tesla-Level Visual Overhaul */}
       <ProgressTimeline />
+      <StatsStrip />
       <PrototypeShowcase />
 
       <Footer />
