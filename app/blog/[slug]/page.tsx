@@ -75,7 +75,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-semibold text-gray-900 dark:text-white">Nezaira</p>
-              <p className="text-xs text-gray-400 dark:text-gray-500">Built in Xi'an. Reaching for Mars.</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">Built in Xi'an.</p>
             </div>
             <Link
               href="/blog"

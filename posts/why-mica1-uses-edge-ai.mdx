@@ -18,7 +18,7 @@ We think this is wrong. Not just ethically, but scientifically.
 
 Edge AI means the intelligence lives on the device itself. No ping to the cloud. No API call to a remote inference server. The sensor reads your body, the microcontroller processes the signal, the model runs its inference — all within millimeters and milliseconds of where the data was born.
 
-For Mica1, we chose the ESP32 as our primary processing unit specifically for this. The ESP32 is capable of running quantized neural networks locally using TensorFlow Lite for Microcontrollers. Our 7-mode detection system — covering orthopedic load, cardiovascular rhythm, fluid-shift indices, sleep staging, stress response, activity classification, and emergency detection — runs entirely on-device.
+For Mica1, our on-device inference engine runs the full 7-mode detection system — covering orthopedic load, cardiovascular rhythm, fluid-shift indices, sleep staging, stress response, activity classification, and emergency detection — entirely on-device. The specific processing architecture is proprietary.
 
 Your data never leaves Mica1.
 
@@ -36,7 +36,7 @@ There are three reasons edge AI isn't just a privacy feature — it's a clinical
 
 One of our core design constraints is keeping the Bill of Materials (BOM) under $20. This isn't a cost-cutting measure — it's a philosophical one.
 
-If Mica1 is to reach people across economic backgrounds, across geographies, and eventually across planetary distances, it cannot be a luxury product. The ESP32 at under $5, commodity IMU sensors, a simple battery management IC, and our custom firmware — this is the stack that makes health monitoring democratically accessible.
+If Mica1 is to reach people across economic backgrounds, across geographies, and eventually across planetary distances, it cannot be a luxury product. Our hardware stack and custom firmware are designed around globally available components — this is what makes health monitoring democratically accessible.
 
 Edge AI makes this possible. We don't need expensive cloud compute subscriptions. The intelligence is already baked in.
 
@@ -48,4 +48,4 @@ If you're a clinician, researcher, or hardware engineer interested in contributi
 
 ---
 
-*Built in Xi'an. Reaching for Mars.*
+*Built in Xi'an.*

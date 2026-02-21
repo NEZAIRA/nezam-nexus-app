@@ -142,7 +142,7 @@ const Footer = () => {
                 </span>
               </div>
               <p className="text-gray-500 text-sm">
-                &copy; 2025 Nezaira. Built in Xi'an. Reaching for Mars.
+                &copy; 2025 Nezaira. Built in Xi'an.
               </p>
             </div>
 
