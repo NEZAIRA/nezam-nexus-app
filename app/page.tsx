@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import ProgressTimeline from '@/components/ProgressTimeline';
+import PrototypeShowcase from '@/components/PrototypeShowcase';
 import BlogSection from '@/components/BlogSection';
 import ProductsSection from '@/components/ProductsSection';
 import Footer from '@/components/Footer';
@@ -204,7 +206,11 @@ export default function Home() {
           
       {/* Scroll Overlay Controller */}
       <ScrollOverlay />
-          
+
+      {/* New Sections - Tesla-Level Visual Overhaul */}
+      <ProgressTimeline />
+      <PrototypeShowcase />
+
       <Footer />
     </div>
   );

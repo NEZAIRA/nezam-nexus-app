@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,9 +32,14 @@ const Navbar = () => {
               Contact
             </Link>
 
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle />
           </div>
           
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center gap-4 md:hidden">
+            {/* Dark Mode Toggle - Mobile */}
+            <DarkModeToggle />
+
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
