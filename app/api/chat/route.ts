@@ -2,7 +2,7 @@ import Groq from 'groq-sdk';
 import { NextResponse } from 'next/server';
 import { checkRateLimit } from '../lib/rateLimiter';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+export const dynamic = 'force-dynamic';
 
 const SYSTEM_PROMPT = `You are SupraBrain, a medical assistant developed by Nezaira.
 
@@ -15,6 +15,7 @@ Guidelines:
 
 export async function POST(request: Request) {
   try {
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     // Rate limiting: Get client IP
     const forwarded = request.headers.get('x-forwarded-for');
     const ip = forwarded ? forwarded.split(',')[0] : 'unknown';
