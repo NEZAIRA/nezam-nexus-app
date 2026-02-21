@@ -1,122 +1,70 @@
-'use client';
-
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { getAllPostMetas } from '@/lib/posts';
 
-
-type BlogPost = {
-  id: string;
-  title: string;
-  subtitle: string;
-  content: string;
-  date: string;
-  category: string;
-  readTime: string;
-  featuredImage: string | null;
-  createdAt: string;
-};
-
-const BlogContent = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch('/api/home-stories');
-        if (!response.ok) {
-          throw new Error('Failed to fetch blog posts');
-        }
-        const data = await response.json();
-        setBlogPosts(data);
-      } catch (err) {
-        setError('Failed to load blog posts');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogPosts();
-  }, []);
-
-  // Function to calculate excerpt from content
-  const getExcerpt = (content: string, length: number = 150) => {
-    return content.length > length ? content.substring(0, length) + '...' : content;
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 py-16">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center">Research & Insights</h1>
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-4 text-gray-500 dark:text-gray-400">Loading research...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 py-16">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center">Research & Insights</h1>
-          <div className="text-center py-12">
-            <p className="text-red-500">{error}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+export default function BlogPage() {
+  const posts = getAllPostMetas();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center">Research & Insights</h1>
-        
-        <div className="space-y-8">
-          {blogPosts.map((post) => (
-            <div 
-              key={post.id} 
-              className="p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-colors duration-300 cursor-pointer bg-white dark:bg-gray-800/50 shadow-sm hover:shadow-md"
-            >
-              <div className="flex justify-between items-start mb-3">
-                <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+        {/* Header */}
+        <div className="mb-14">
+          <p className="text-xs font-mono tracking-[0.3em] text-blue-500 uppercase mb-3">
+            Nezaira Research
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Research & Insights
+          </h1>
+          <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl">
+            Engineering notes, space medicine research, and development updates from the Mica1 team.
+          </p>
+        </div>
+
+        {/* Post list */}
+        <div className="space-y-0 divide-y divide-gray-100 dark:divide-gray-800">
+          {posts.map((post) => (
+            <article key={post.slug} className="py-10 group">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="inline-block px-2.5 py-0.5 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                   {post.category}
                 </span>
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span>{post.readTime}</span>
-                  <span>•</span>
-                  <span>{post.date}</span>
-                </div>
+                <span className="text-xs text-gray-400 dark:text-gray-500">
+                  {new Date(post.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">· {post.readTime}</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                {post.title}
+
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                {getExcerpt(post.content)}
+
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-5 max-w-2xl">
+                {post.excerpt}
               </p>
-              <div 
-                className="text-blue-600 dark:text-blue-400 font-medium inline-flex items-center cursor-not-allowed opacity-50"
+
+              <Link
+                href={`/blog/${post.slug}`}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:gap-3 transition-all duration-200"
               >
-                Read full article →
-              </div>
-            </div>
+                Read article
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </article>
           ))}
         </div>
-        
-        {blogPosts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 dark:text-gray-400 text-lg">No research articles available at the moment.</p>
+
+        {posts.length === 0 && (
+          <div className="text-center py-24">
+            <p className="text-gray-400 dark:text-gray-500 text-lg">No articles yet.</p>
           </div>
         )}
       </div>
     </div>
   );
 }
-
-export default BlogContent;

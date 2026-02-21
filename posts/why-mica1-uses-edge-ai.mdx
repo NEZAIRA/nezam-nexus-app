@@ -1,0 +1,51 @@
+---
+title: "Why Mica1 Uses Edge AI — The Privacy-First Approach to Wearable Health"
+date: "2026-02-10"
+category: "Research"
+readTime: "6 min read"
+excerpt: "Most health wearables send your data to the cloud before you even see it. Mica1 was designed from day one to never do that — here's why it matters and how we built it."
+---
+
+## The Problem With Cloud-First Health Devices
+
+Every smartwatch or fitness tracker you've ever worn made the same silent assumption: your health data is more useful in someone else's data center than on your wrist.
+
+Your heart rate spikes at 2 AM. Your sleep cycles. The exact moment your stress cortisol response kicked in during a meeting. That data travels — encrypted, yes, but still traveling — to servers you don't control, to companies whose business model you may not fully understand.
+
+We think this is wrong. Not just ethically, but scientifically.
+
+## What Edge AI Actually Means
+
+Edge AI means the intelligence lives on the device itself. No ping to the cloud. No API call to a remote inference server. The sensor reads your body, the microcontroller processes the signal, the model runs its inference — all within millimeters and milliseconds of where the data was born.
+
+For Mica1, we chose the ESP32 as our primary processing unit specifically for this. The ESP32 is capable of running quantized neural networks locally using TensorFlow Lite for Microcontrollers. Our 7-mode detection system — covering orthopedic load, cardiovascular rhythm, fluid-shift indices, sleep staging, stress response, activity classification, and emergency detection — runs entirely on-device.
+
+Your data never leaves Mica1.
+
+## Why This Matters More Than You Think
+
+There are three reasons edge AI isn't just a privacy feature — it's a clinical one:
+
+**1. Latency.** A cloud-dependent device has a round-trip time of 80–300ms for basic inference. For emergency detection — detecting a fall, a cardiac irregularity, or a dangerous fluid-shift during prolonged microgravity — that latency is unacceptable. On-device inference takes under 10ms.
+
+**2. Reliability.** In remote environments — high-altitude expeditions, maritime operations, eventual Mars transit — you cannot guarantee a network connection. A device that depends on connectivity to function isn't a medical device. It's a toy.
+
+**3. Trust.** Research shows patients are significantly more likely to wear and engage with health monitoring devices when they believe their data is private. A device that users actually wear produces far better health outcomes than one sitting in a drawer.
+
+## The $15–20 BOM Target
+
+One of our core design constraints is keeping the Bill of Materials (BOM) under $20. This isn't a cost-cutting measure — it's a philosophical one.
+
+If Mica1 is to reach people across economic backgrounds, across geographies, and eventually across planetary distances, it cannot be a luxury product. The ESP32 at under $5, commodity IMU sensors, a simple battery management IC, and our custom firmware — this is the stack that makes health monitoring democratically accessible.
+
+Edge AI makes this possible. We don't need expensive cloud compute subscriptions. The intelligence is already baked in.
+
+## What's Next
+
+Mica1 is currently in prototype development. Our next milestone is validating the orthopedic and cardiovascular modes against clinical-grade reference devices. We expect to begin this validation phase in Q3 2026.
+
+If you're a clinician, researcher, or hardware engineer interested in contributing, reach out at contact@nezaira.com.
+
+---
+
+*Built in Xi'an. Reaching for Mars.*

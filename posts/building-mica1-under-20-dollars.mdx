@@ -1,0 +1,68 @@
+---
+title: "Building a 7-Mode Health Monitor for Under $20 — The Mica1 Hardware Story"
+date: "2026-02-18"
+category: "Engineering"
+readTime: "7 min read"
+excerpt: "From orthopedic sensing to emergency detection — how we're building a clinical-grade wearable health monitor with a sub-$20 bill of materials, and why that price point is the entire point."
+---
+
+## The Price Is the Philosophy
+
+Every decision in Mica1's hardware design flows from a single constraint: the bill of materials must stay under $20.
+
+This wasn't handed down from a finance department. It's a philosophical commitment. If health monitoring technology is to reach the people who need it most — in rural China, in Sub-Saharan Africa, on a future Mars colony — it cannot cost what an AirPods Pro costs. It needs to cost what a good meal costs.
+
+The sub-$20 BOM target forces good engineering decisions. It eliminates waste. It focuses the design.
+
+## The Core Stack
+
+Mica1's hardware is built around three primary components:
+
+**ESP32-S3 Microcontroller (~$3–5)**
+The ESP32-S3 is the brain. It runs our on-device inference engine (TensorFlow Lite for Microcontrollers), manages sensor fusion, handles BLE communication, and controls power states. It's a remarkable piece of silicon for the price — dual-core Xtensa LX7 at 240MHz, with a vector extension that accelerates neural network inference by 40× over the base ESP32.
+
+**IMU + Bio-Sensor Array (~$4–7)**
+For motion and biomechanical sensing (orthopedic, activity, and fall-detection modes), we use a 6-axis IMU — either the LSM6DSO or ICM-42688-P depending on availability. For cardiovascular and fluid-shift modes, we combine a MAX30102 PPG module with custom bioelectrical impedance analysis (BIA) electrodes.
+
+**Power Management + Battery (~$3–5)**
+A 3.7V 300mAh LiPo cell with a TP4056-based charging circuit. Our deep-sleep power management firmware achieves sub-50µA quiescent draw, enabling the 3–5 day battery life target.
+
+The remaining budget covers PCB fabrication, passive components, antenna matching, and the enclosure.
+
+## 7 Modes, One Device
+
+What makes Mica1's design challenging isn't any individual sensor — it's the fusion of all of them into a coherent, reliable multi-mode system.
+
+**Mode 1 — Orthopedic:** IMU-derived joint load estimation and posture analysis. Designed for rehabilitation monitoring and occupational health.
+
+**Mode 2 — Cardiovascular:** PPG-based heart rate, HRV, and SpO2. The foundation of any health wearable, done right.
+
+**Mode 3 — Fluid-Shift:** Bioelectrical impedance plus PPG waveform morphology analysis. Our most novel mode — proxy monitoring of cephalad fluid redistribution.
+
+**Mode 4 — Sleep:** Accelerometer + HRV fusion for sleep stage classification. No eye-tracking cameras. No expensive radar modules. Just physics and signal processing.
+
+**Mode 5 — Stress:** HRV-derived sympathetic/parasympathetic balance. The mode most users will interact with daily.
+
+**Mode 6 — Activity:** Standard motion classification — walking, running, sedentary, cycling — but with orthopedic overlay to flag high-impact activities for injury-risk users.
+
+**Mode 7 — Emergency:** Fall detection + cardiac irregularity detection with BLE alert broadcast. The mode designed for elderly care and high-risk environments.
+
+## What We're Not Building
+
+Mica1 is not a smartwatch. It has no display. It doesn't show you notifications. It doesn't track your steps in a way that makes you feel good about taking the elevator.
+
+It is a medical sensor platform. The output is data — clean, on-device processed, privacy-preserving data — that tells you something clinically meaningful about your body.
+
+A companion app (in development) visualizes trends and surfaces alerts. But the intelligence lives on the device.
+
+## Current Status
+
+We are in active prototype development. PCB revision 2 is being fabricated. Firmware for modes 1, 2, and 6 is functional. Modes 3 (fluid-shift) and 7 (emergency) are in algorithm development.
+
+Our target for clinical validation begins Q3 2026. We're looking for collaborators — clinicians, biomedical engineers, and hardware hackers who want to work on something that matters.
+
+Reach out: contact@nezaira.com
+
+---
+
+*Mica1 is a product of Nezaira, built in Xi'an, China. We're building intelligent health systems for Earth and beyond.*
