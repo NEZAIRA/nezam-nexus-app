@@ -16,18 +16,11 @@ The sub-$20 BOM target forces good engineering decisions. It eliminates waste. I
 
 ## The Core Stack
 
-Mica1's hardware is built around three primary components:
+Mica1's hardware is built around three primary subsystems: a main processing unit, a bio-sensor array, and a power management circuit. The specific component selection and circuit design remain proprietary and are not disclosed publicly at this stage of development.
 
-**ESP32-S3 Microcontroller (~$3–5)**
-The ESP32-S3 is the brain. It runs our on-device inference engine (TensorFlow Lite for Microcontrollers), manages sensor fusion, handles BLE communication, and controls power states. It's a remarkable piece of silicon for the price — dual-core Xtensa LX7 at 240MHz, with a vector extension that accelerates neural network inference by 40× over the base ESP32.
+What we can share is the design philosophy: every component was chosen for the intersection of clinical reliability and cost accessibility. Nothing in Mica1 requires specialty supply chains or exclusive manufacturing agreements. The entire device can be produced at volume using globally available parts.
 
-**IMU + Bio-Sensor Array (~$4–7)**
-For motion and biomechanical sensing (orthopedic, activity, and fall-detection modes), we use a 6-axis IMU — either the LSM6DSO or ICM-42688-P depending on availability. For cardiovascular and fluid-shift modes, we combine a MAX30102 PPG module with custom bioelectrical impedance analysis (BIA) electrodes.
-
-**Power Management + Battery (~$3–5)**
-A 3.7V 300mAh LiPo cell with a TP4056-based charging circuit. Our deep-sleep power management firmware achieves sub-50µA quiescent draw, enabling the 3–5 day battery life target.
-
-The remaining budget covers PCB fabrication, passive components, antenna matching, and the enclosure.
+Full hardware specifications will be disclosed following our clinical validation phase, expected Q3 2026.
 
 ## 7 Modes, One Device
 
